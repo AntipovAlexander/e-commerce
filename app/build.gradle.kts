@@ -42,6 +42,11 @@ android {
 dependencies {
 
     implementation(project(":core:theme"))
+    implementation(project(":features:sign_in"))
+    implementation(project(":features:sign_up"))
+    implementation(project(":features:forgot_password"))
+
+    implementation(libs.androidx.navigation)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
