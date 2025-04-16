@@ -6,8 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.antipov.forgot_password.ForgotPasswordScreen
+import com.antipov.onboarding.navigation.Onboarding
 import com.antipov.sign_in.SignInScreen
 import com.antipov.sign_up.SignUpScreen
 import com.antipov.theme.EcommerceTheme
@@ -21,24 +23,26 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = SignInScreen,
+                    startDestination = Onboarding,
                 ) {
-                    composable<SignInScreen> {
-                        SignInScreen(
-                            onSignUpClicked = { navController.navigate(SignUpScreen) },
-                            onRestoreClicked = { navController.navigate(ForgotPasswordScreen) }
-                        )
-                    }
-                    composable<SignUpScreen> {
-                        SignUpScreen(
-                            onSignInClicked = { navController.popBackStack() },
-                            onRestoreClicked = { navController.navigate(ForgotPasswordScreen) }
-                        )
-                    }
-                    composable<ForgotPasswordScreen> {
-                        ForgotPasswordScreen(
-                            onBackClicked = { navController.popBackStack() }
-                        )
+                    navigation<Onboarding>(startDestination = SignInScreen) {
+                        composable<SignInScreen> {
+                            SignInScreen(
+                                onSignUpClicked = { navController.navigate(SignUpScreen) },
+                                onRestoreClicked = { navController.navigate(ForgotPasswordScreen) }
+                            )
+                        }
+                        composable<SignUpScreen> {
+                            SignUpScreen(
+                                onSignInClicked = { navController.popBackStack() },
+                                onRestoreClicked = { navController.navigate(ForgotPasswordScreen) }
+                            )
+                        }
+                        composable<ForgotPasswordScreen> {
+                            ForgotPasswordScreen(
+                                onBackClicked = { navController.popBackStack() }
+                            )
+                        }
                     }
                 }
             }

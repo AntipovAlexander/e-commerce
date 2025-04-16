@@ -21,14 +21,15 @@ dependencyResolutionManagement {
 
 rootProject.name = "e-commerce"
 include(":app")
+include(":features:onboarding:sign_up")
+include(":features:onboarding:forgot_password")
+include(":features:onboarding:sign_in")
 include(":features:home")
 include(":features:browse")
 include(":features:favourites")
 include(":features:cart")
 include(":features:profile")
-include(":features:sign_up")
 include(":features:product_details")
 include(":core:theme")
-include(":features:forgot_password")
-include(":features:sign_in")
 include(":core:navigation")
+include(":features:onboarding")

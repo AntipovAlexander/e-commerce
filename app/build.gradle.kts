@@ -42,9 +42,7 @@ android {
 dependencies {
 
     implementation(project(":core:theme"))
-    implementation(project(":features:sign_in"))
-    implementation(project(":features:sign_up"))
-    implementation(project(":features:forgot_password"))
+    implementation(project(":features:onboarding"))
 
     implementation(libs.androidx.navigation)
 
