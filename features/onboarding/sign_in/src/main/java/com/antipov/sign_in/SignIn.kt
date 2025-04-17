@@ -20,7 +20,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SignInScreen(
     onSignUpClicked: () -> Unit,
-    onRestoreClicked: () -> Unit
+    onRestoreClicked: () -> Unit,
+    onLoggedIn: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -46,6 +47,9 @@ fun SignInScreen(
             Button(onClick = onSignUpClicked) {
                 Text("Sign up")
             }
+            Button(onClick = onLoggedIn) {
+                Text("Let me in")
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -66,5 +70,5 @@ fun SignInScreen(
 @Preview(showBackground = true)
 @Composable
 fun SignInScreenPreview() {
-    SignInScreen(onSignUpClicked = {}, onRestoreClicked = {})
+    SignInScreen(onSignUpClicked = {}, onRestoreClicked = {}, onLoggedIn = {})
 }

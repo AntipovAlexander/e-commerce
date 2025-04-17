@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -31,12 +32,16 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
-    api(project(":features:onboarding:sign_up"))
-    api(project(":features:onboarding:sign_in"))
-    api(project(":features:onboarding:forgot_password"))
+    implementation(project(":features:onboarding:sign_up"))
+    implementation(project(":features:onboarding:sign_in"))
+    implementation(project(":features:onboarding:forgot_password"))
+    implementation(libs.androidx.navigation)
     implementation(libs.kotlin.serialization.json)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

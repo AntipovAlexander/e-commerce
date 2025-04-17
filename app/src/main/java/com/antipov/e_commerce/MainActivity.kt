@@ -4,14 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.antipov.forgot_password.ForgotPasswordScreen
-import com.antipov.onboarding.navigation.Onboarding
-import com.antipov.sign_in.SignInScreen
-import com.antipov.sign_up.SignUpScreen
+import com.antipov.main.navigation.MainScreenFlow
+import com.antipov.main.navigation.mainScreenGraph
+import com.antipov.onboarding.navigation.OnboardingFlow
+import com.antipov.onboarding.navigation.onboardingGraph
 import com.antipov.theme.EcommerceTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,32 +21,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             EcommerceTheme {
-                val navController = rememberNavController()
-                NavHost(
-                    navController = navController,
-                    startDestination = Onboarding,
-                ) {
-                    navigation<Onboarding>(startDestination = SignInScreen) {
-                        composable<SignInScreen> {
-                            SignInScreen(
-                                onSignUpClicked = { navController.navigate(SignUpScreen) },
-                                onRestoreClicked = { navController.navigate(ForgotPasswordScreen) }
-                            )
-                        }
-                        composable<SignUpScreen> {
-                            SignUpScreen(
-                                onSignInClicked = { navController.popBackStack() },
-                                onRestoreClicked = { navController.navigate(ForgotPasswordScreen) }
-                            )
-                        }
-                        composable<ForgotPasswordScreen> {
-                            ForgotPasswordScreen(
-                                onBackClicked = { navController.popBackStack() }
-                            )
-                        }
-                    }
-                }
+                MainNavHost()
             }
         }
     }
 }
+
