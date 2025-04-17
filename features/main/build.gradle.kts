@@ -8,9 +8,18 @@ android {
 }
 
 dependencies {
+    implementation(project(":features:main:home"))
+    implementation(project(":features:main:browse"))
+    implementation(project(":features:main:favourites"))
+    implementation(project(":features:main:cart"))
+    implementation(project(":features:main:profile"))
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.kotlin.serialization.json)
     implementation(libs.androidx.navigation)
     implementation(libs.bundles.ktx)
     implementation(libs.bundles.ui)
+
+    implementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.tooling.preview)
 }

@@ -13,4 +13,7 @@ dependencies {
     implementation(libs.kotlin.serialization.json)
     implementation(libs.bundles.ktx)
     implementation(libs.bundles.ui)
+
+    implementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.tooling.preview)
 }

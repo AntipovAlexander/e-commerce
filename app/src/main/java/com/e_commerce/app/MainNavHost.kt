@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.e_commerce.main.navigation.MainScreenFlow
-import com.e_commerce.main.navigation.mainScreenGraph
+import com.e_commerce.main.navigation.graph.MainScreenFlow
+import com.e_commerce.main.navigation.graph.mainScreenGraph
 import com.e_commerce.onboarding.navigation.OnboardingFlow
 import com.e_commerce.onboarding.navigation.onboardingGraph
 
