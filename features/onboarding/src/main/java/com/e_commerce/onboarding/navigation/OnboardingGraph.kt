@@ -17,10 +17,7 @@ fun NavGraphBuilder.onboardingGraph(
             SignInScreen(
                 onSignUpClicked = { navController.navigate(SignUpScreen) },
                 onRestoreClicked = { navController.navigate(ForgotPasswordScreen) },
-                onLoggedIn = {
-                    onUserLoggedIn()
-
-                }
+                onLoggedIn = { onUserLoggedIn() }
             )
         }
         composable<SignUpScreen> {
