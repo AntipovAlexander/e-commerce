@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.antipov.navigation"
+    namespace = "com.e_commerce.navigation"
 }
 
 dependencies {

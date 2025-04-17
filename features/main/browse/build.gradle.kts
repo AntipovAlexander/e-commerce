@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.antipov.browse"
+    namespace = "com.e_commerce.browse"
 }
 
 dependencies {

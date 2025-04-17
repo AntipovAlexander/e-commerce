@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.antipov.onboarding"
+    namespace = "com.e_commerce.onboarding"
 }
 
 dependencies {

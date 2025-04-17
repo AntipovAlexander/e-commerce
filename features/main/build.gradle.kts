@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.antipov.main"
+    namespace = "com.e_commerce.main"
 }
 
 dependencies {

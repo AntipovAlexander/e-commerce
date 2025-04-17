@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.antipov.sign_up"
+    namespace = "com.e_commerce.sign_up"
 }
 
 dependencies {

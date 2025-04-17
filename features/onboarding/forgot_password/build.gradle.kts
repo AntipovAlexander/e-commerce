@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.antipov.forgot_password"
+    namespace = "com.e_commerce.forgot_password"
 }
 
 dependencies {

@@ -1,0 +1,32 @@
+package com.e_commerce.app
+
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.e_commerce.main.navigation.MainScreenFlow
+import com.e_commerce.main.navigation.mainScreenGraph
+import com.e_commerce.onboarding.navigation.OnboardingFlow
+import com.e_commerce.onboarding.navigation.onboardingGraph
+
+@Composable
+fun MainActivity.MainNavHost() {
+    val navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = OnboardingFlow,
+    ) {
+        onboardingGraph(
+            navController = navController,
+            onUserLoggedIn = { switchToMainGraph(navController) }
+        )
+        mainScreenGraph()
+    }
+}
+
+private fun NavGraphBuilder.switchToMainGraph(navController: NavHostController) {
+    navController.navigate(MainScreenFlow) {
+        popUpTo<OnboardingFlow> { inclusive = true }
+    }
+}

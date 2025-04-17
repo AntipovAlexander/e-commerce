@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.antipov.cart"
+    namespace = "com.e_commerce.cart"
 }
 
 dependencies {
