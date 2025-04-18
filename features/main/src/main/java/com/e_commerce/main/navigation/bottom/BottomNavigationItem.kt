@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.e_commerce.browse.BrowseRoute
+import com.e_commerce.cart.CartRoute
 import com.e_commerce.favourites.FavouritesRoute
 import com.e_commerce.home.HomeRoute
 import com.e_commerce.profile.ProfileRoute
@@ -35,7 +36,7 @@ enum class BottomNavigationItem(
     CART(
         title = "Cart",
         icon = Icons.Default.ShoppingCart,
-        route = BrowseRoute
+        route = CartRoute
     ),
     PROFILE(
         title = "Profile",

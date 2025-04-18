@@ -10,30 +10,24 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.e_commerce.browse.BrowseRoute
-import com.e_commerce.cart.CartRoute
-import com.e_commerce.favourites.FavouritesRoute
-import com.e_commerce.home.HomeRoute
 import com.e_commerce.main.navigation.bottom.BottomNavigationItem
 import com.e_commerce.main.navigation.bottom.mainBottomNavigation
-import com.e_commerce.profile.ProfileRoute
 
 @Composable
 internal fun MainScreen() {
     val navController = rememberNavController()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            BottomBar { index -> resolveNavigation(index, navController) }
-        }
+        bottomBar = { BottomBar(navController) }
     ) { innerPadding ->
         NavHost(
             navController = navController,
@@ -44,23 +38,26 @@ internal fun MainScreen() {
 }
 
 @Composable
-private fun BottomBar(onItemChanged: (Int) -> Unit) {
-    val selectedNavigationIndex = rememberSaveable { mutableIntStateOf(0) }
+private fun BottomBar(navController: NavController) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
     NavigationBar(containerColor = Color.White) {
         BottomNavigationItem.entries.forEachIndexed { index, item ->
             NavigationBarItem(
-                selected = selectedNavigationIndex.intValue == index,
+                selected = navBackStackEntry.isSelected(item.route),
                 onClick = {
-                    selectedNavigationIndex.intValue = index
-                    onItemChanged(index)
+                    navController.navigate(item.route) {
+                        popUpTo(navController.graph.startDestinationId)
+                        launchSingleTop = true
+                    }
                 },
                 icon = { Icon(imageVector = item.icon, contentDescription = item.title) },
                 label = {
                     Text(
                         item.title,
-                        color = if (index == selectedNavigationIndex.intValue)
+                        color = if (navBackStackEntry.isSelected(item.route))
                             Color.Black
-                        else Color.Gray
+                        else
+                            Color.Gray
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
@@ -72,16 +69,8 @@ private fun BottomBar(onItemChanged: (Int) -> Unit) {
     }
 }
 
-private fun resolveNavigation(index: Int, navController: NavHostController) {
-    when (index) {
-        0 -> navController.navigate(HomeRoute)
-        1 -> navController.navigate(BrowseRoute)
-        2 -> navController.navigate(FavouritesRoute)
-        3 -> navController.navigate(CartRoute)
-        4 -> navController.navigate(ProfileRoute)
-        else -> throw IllegalArgumentException("Wrong bottom index: $index")
-    }
-}
+private fun NavBackStackEntry?.isSelected(route: Any) =
+    this?.destination?.route == route::class.java.name
 
 @Preview(showBackground = true)
 @Composable
