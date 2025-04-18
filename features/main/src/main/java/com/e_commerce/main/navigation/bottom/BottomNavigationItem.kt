@@ -7,11 +7,10 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.e_commerce.browse.BrowseScreen
-import com.e_commerce.cart.CartScreen
-import com.e_commerce.favourites.FavouritesScreen
-import com.e_commerce.home.HomeScreen
-import com.e_commerce.profile.ProfileScreen
+import com.e_commerce.browse.BrowseRoute
+import com.e_commerce.favourites.FavouritesRoute
+import com.e_commerce.home.HomeRoute
+import com.e_commerce.profile.ProfileRoute
 
 enum class BottomNavigationItem(
     val title: String,
@@ -21,26 +20,26 @@ enum class BottomNavigationItem(
     HOME(
         title = "Home",
         icon = Icons.Default.Home,
-        route = HomeScreen
+        route = HomeRoute
     ),
     BROWSE(
         title = "Browse",
         icon = Icons.Default.Search,
-        route = BrowseScreen
+        route = BrowseRoute
     ),
     FAVOURITES(
         title = "Favourites",
         icon = Icons.Default.FavoriteBorder,
-        route = FavouritesScreen
+        route = FavouritesRoute
     ),
     CART(
         title = "Cart",
         icon = Icons.Default.ShoppingCart,
-        route = CartScreen
+        route = BrowseRoute
     ),
     PROFILE(
         title = "Profile",
         icon = Icons.Default.Person,
-        route = ProfileScreen
+        route = ProfileRoute
     ),
 }

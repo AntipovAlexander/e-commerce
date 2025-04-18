@@ -1,6 +1,6 @@
-package com.e_commerce.home
+package com.e_commerce.profile
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object HomeScreen
+data object ProfileRoute

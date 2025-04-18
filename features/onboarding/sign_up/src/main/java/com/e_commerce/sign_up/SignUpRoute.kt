@@ -1,6 +1,6 @@
-package com.e_commerce.main
+package com.e_commerce.sign_up
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object MainScreen
+data object SignUpRoute

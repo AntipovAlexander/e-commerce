@@ -18,13 +18,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.e_commerce.browse.BrowseScreen
-import com.e_commerce.cart.CartScreen
-import com.e_commerce.favourites.FavouritesScreen
-import com.e_commerce.home.HomeScreen
+import com.e_commerce.browse.BrowseRoute
+import com.e_commerce.cart.CartRoute
+import com.e_commerce.favourites.FavouritesRoute
+import com.e_commerce.home.HomeRoute
 import com.e_commerce.main.navigation.bottom.BottomNavigationItem
 import com.e_commerce.main.navigation.bottom.mainBottomNavigation
-import com.e_commerce.profile.ProfileScreen
+import com.e_commerce.profile.ProfileRoute
 
 @Composable
 internal fun MainScreen() {
@@ -74,11 +74,11 @@ private fun BottomBar(onItemChanged: (Int) -> Unit) {
 
 private fun resolveNavigation(index: Int, navController: NavHostController) {
     when (index) {
-        0 -> navController.navigate(HomeScreen)
-        1 -> navController.navigate(BrowseScreen)
-        2 -> navController.navigate(FavouritesScreen)
-        3 -> navController.navigate(CartScreen)
-        4 -> navController.navigate(ProfileScreen)
+        0 -> navController.navigate(HomeRoute)
+        1 -> navController.navigate(BrowseRoute)
+        2 -> navController.navigate(FavouritesRoute)
+        3 -> navController.navigate(CartRoute)
+        4 -> navController.navigate(ProfileRoute)
         else -> throw IllegalArgumentException("Wrong bottom index: $index")
     }
 }

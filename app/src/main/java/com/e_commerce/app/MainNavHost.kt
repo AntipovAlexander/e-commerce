@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.e_commerce.main.navigation.graph.MainScreenFlow
 import com.e_commerce.main.navigation.graph.mainScreenGraph
-import com.e_commerce.onboarding.navigation.OnboardingFlow
+import com.e_commerce.onboarding.navigation.OnboardingRoute
 import com.e_commerce.onboarding.navigation.onboardingGraph
 
 @Composable
@@ -15,7 +15,7 @@ fun MainActivity.MainNavHost() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = OnboardingFlow,
+        startDestination = OnboardingRoute,
     ) {
         onboardingGraph(
             navController = navController,
@@ -27,6 +27,6 @@ fun MainActivity.MainNavHost() {
 
 private fun NavGraphBuilder.switchToMainGraph(navController: NavHostController) {
     navController.navigate(MainScreenFlow) {
-        popUpTo<OnboardingFlow> { inclusive = true }
+        popUpTo<OnboardingRoute> { inclusive = true }
     }
 }

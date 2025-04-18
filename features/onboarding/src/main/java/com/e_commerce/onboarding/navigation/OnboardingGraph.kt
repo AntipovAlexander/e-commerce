@@ -4,29 +4,32 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.e_commerce.forgot_password.ForgotPasswordRoute
 import com.e_commerce.forgot_password.ForgotPasswordScreen
+import com.e_commerce.sign_in.SignInRoute
 import com.e_commerce.sign_in.SignInScreen
+import com.e_commerce.sign_up.SignUpRoute
 import com.e_commerce.sign_up.SignUpScreen
 
 fun NavGraphBuilder.onboardingGraph(
     navController: NavController,
     onUserLoggedIn: () -> Unit
 ) {
-    navigation<OnboardingFlow>(startDestination = SignInScreen) {
-        composable<SignInScreen> {
+    navigation<OnboardingRoute>(startDestination = SignInRoute) {
+        composable<SignInRoute> {
             SignInScreen(
-                onSignUpClicked = { navController.navigate(SignUpScreen) },
-                onRestoreClicked = { navController.navigate(ForgotPasswordScreen) },
+                onSignUpClicked = { navController.navigate(SignUpRoute) },
+                onRestoreClicked = { navController.navigate(ForgotPasswordRoute) },
                 onLoggedIn = { onUserLoggedIn() }
             )
         }
-        composable<SignUpScreen> {
+        composable<SignUpRoute> {
             SignUpScreen(
                 onSignInClicked = { navController.popBackStack() },
-                onRestoreClicked = { navController.navigate(ForgotPasswordScreen) }
+                onRestoreClicked = { navController.navigate(ForgotPasswordRoute) }
             )
         }
-        composable<ForgotPasswordScreen> {
+        composable<ForgotPasswordRoute> {
             ForgotPasswordScreen(
                 onBackClicked = { navController.popBackStack() }
             )
