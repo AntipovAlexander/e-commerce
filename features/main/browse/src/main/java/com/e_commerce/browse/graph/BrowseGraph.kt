@@ -8,8 +8,8 @@ import androidx.navigation.createGraph
 import androidx.navigation.toRoute
 import com.e_commerce.browse.BrowseRoute
 import com.e_commerce.browse.BrowseScreen
-import com.e_commerce.product_details.ProductDetailsRoute
-import com.e_commerce.product_details.ProductDetailsScreen
+import com.e_commerce.product_details.presentation.ProductDetailsRoute
+import com.e_commerce.product_details.presentation.ProductDetailsScreen
 
 @Composable
 fun BrowseGraph() {

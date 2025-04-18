@@ -8,8 +8,8 @@ import androidx.navigation.createGraph
 import androidx.navigation.toRoute
 import com.e_commerce.cart.CartRoute
 import com.e_commerce.cart.CartScreen
-import com.e_commerce.product_details.ProductDetailsRoute
-import com.e_commerce.product_details.ProductDetailsScreen
+import com.e_commerce.product_details.presentation.ProductDetailsRoute
+import com.e_commerce.product_details.presentation.ProductDetailsScreen
 
 @Composable
 fun CartGraph() {

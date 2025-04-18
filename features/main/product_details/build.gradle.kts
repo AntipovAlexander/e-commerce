@@ -10,6 +10,7 @@ android {
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.kotlin.serialization.json)
+    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.bundles.ktx)
     implementation(libs.bundles.ui)
 

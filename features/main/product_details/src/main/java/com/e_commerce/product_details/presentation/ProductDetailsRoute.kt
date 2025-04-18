@@ -1,4 +1,4 @@
-package com.e_commerce.product_details
+package com.e_commerce.product_details.presentation
 
 import kotlinx.serialization.Serializable
 
