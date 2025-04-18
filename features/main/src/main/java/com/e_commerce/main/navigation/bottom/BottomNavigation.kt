@@ -3,30 +3,29 @@ package com.e_commerce.main.navigation.bottom
 import androidx.navigation.NavController
 import androidx.navigation.compose.composable
 import androidx.navigation.createGraph
-import com.e_commerce.browse.BrowseRoute
-import com.e_commerce.browse.BrowseScreen
-import com.e_commerce.cart.CartRoute
-import com.e_commerce.cart.CartScreen
-import com.e_commerce.favourites.FavouritesRoute
-import com.e_commerce.favourites.FavouritesScreen
-import com.e_commerce.home.HomeRoute
-import com.e_commerce.home.HomeScreen
+import com.e_commerce.browse.graph.BrowseGraph
+import com.e_commerce.browse.graph.BrowseGraphRoute
+import com.e_commerce.cart.graph.CartGraph
+import com.e_commerce.cart.graph.CartGraphRoute
+import com.e_commerce.favourites.graph.FavouritesGraph
+import com.e_commerce.favourites.graph.FavouritesGraphRoute
+import com.e_commerce.home.graph.HomeGraph
+import com.e_commerce.home.graph.HomeGraphRoute
 import com.e_commerce.profile.ProfileRoute
 import com.e_commerce.profile.ProfileScreen
 
-fun NavController.mainBottomNavigation() = createGraph(startDestination = HomeRoute) {
-    // todo: provide callbacks
-    composable<HomeRoute> {
-        HomeScreen {}
+fun NavController.mainBottomNavigation() = createGraph(startDestination = HomeGraphRoute) {
+    composable<HomeGraphRoute> {
+        HomeGraph()
     }
-    composable<BrowseRoute> {
-        BrowseScreen { }
+    composable<BrowseGraphRoute> {
+        BrowseGraph()
     }
-    composable<FavouritesRoute> {
-        FavouritesScreen { }
+    composable<FavouritesGraphRoute> {
+        FavouritesGraph()
     }
-    composable<CartRoute> {
-        CartScreen { }
+    composable<CartGraphRoute> {
+        CartGraph()
     }
     composable<ProfileRoute> {
         ProfileScreen { }

@@ -13,6 +13,7 @@ dependencies {
     implementation(project(":features:main:favourites"))
     implementation(project(":features:main:cart"))
     implementation(project(":features:main:profile"))
+    implementation(project(":features:main:product_details"))
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.kotlin.serialization.json)

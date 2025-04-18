@@ -7,10 +7,10 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.e_commerce.browse.BrowseRoute
-import com.e_commerce.cart.CartRoute
-import com.e_commerce.favourites.FavouritesRoute
-import com.e_commerce.home.HomeRoute
+import com.e_commerce.browse.graph.BrowseGraphRoute
+import com.e_commerce.cart.graph.CartGraphRoute
+import com.e_commerce.favourites.graph.FavouritesGraphRoute
+import com.e_commerce.home.graph.HomeGraphRoute
 import com.e_commerce.profile.ProfileRoute
 
 enum class BottomNavigationItem(
@@ -21,22 +21,22 @@ enum class BottomNavigationItem(
     HOME(
         title = "Home",
         icon = Icons.Default.Home,
-        route = HomeRoute
+        route = HomeGraphRoute
     ),
     BROWSE(
         title = "Browse",
         icon = Icons.Default.Search,
-        route = BrowseRoute
+        route = BrowseGraphRoute
     ),
     FAVOURITES(
         title = "Favourites",
         icon = Icons.Default.FavoriteBorder,
-        route = FavouritesRoute
+        route = FavouritesGraphRoute
     ),
     CART(
         title = "Cart",
         icon = Icons.Default.ShoppingCart,
-        route = CartRoute
+        route = CartGraphRoute
     ),
     PROFILE(
         title = "Profile",

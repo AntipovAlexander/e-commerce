@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.e_commerce.main.navigation.graph.MainScreenFlow
+import com.e_commerce.main.navigation.graph.MainScreenGraphRoute
 import com.e_commerce.main.navigation.graph.mainScreenGraph
 import com.e_commerce.onboarding.navigation.OnboardingRoute
 import com.e_commerce.onboarding.navigation.onboardingGraph
@@ -26,7 +26,7 @@ fun MainActivity.MainNavHost() {
 }
 
 private fun NavGraphBuilder.switchToMainGraph(navController: NavHostController) {
-    navController.navigate(MainScreenFlow) {
+    navController.navigate(MainScreenGraphRoute) {
         popUpTo<OnboardingRoute> { inclusive = true }
     }
 }
