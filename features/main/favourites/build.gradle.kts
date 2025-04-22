@@ -8,8 +8,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":features:main:product_details"))
-
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.kotlin.serialization.json)
     implementation(libs.androidx.navigation)

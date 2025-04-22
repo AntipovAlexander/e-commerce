@@ -30,6 +30,6 @@ fun BrowseScreen(onOpenDetailsClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun BrowseScreenPreview() {
+private fun BrowseScreenPreview() {
     BrowseScreen(onOpenDetailsClick = {})
 }

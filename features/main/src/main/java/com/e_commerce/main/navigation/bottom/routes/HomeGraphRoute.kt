@@ -1,4 +1,4 @@
-package com.e_commerce.home.graph
+package com.e_commerce.main.navigation.bottom.routes
 
 import kotlinx.serialization.Serializable
 

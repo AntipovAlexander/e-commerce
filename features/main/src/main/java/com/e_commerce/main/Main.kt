@@ -21,7 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.e_commerce.main.navigation.bottom.BottomNavigationItem
-import com.e_commerce.main.navigation.bottom.mainBottomNavigation
+import com.e_commerce.main.navigation.bottom.bottomNavigationGraph
 
 @Composable
 internal fun MainScreen() {
@@ -32,7 +32,7 @@ internal fun MainScreen() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            graph = navController.mainBottomNavigation(),
+            graph = navController.bottomNavigationGraph(),
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -78,6 +78,6 @@ private fun NavBackStackEntry?.isSelected(route: Any) =
 
 @Preview(showBackground = true)
 @Composable
-fun MainScreenPreview() {
+private fun MainScreenPreview() {
     MainScreen()
 }
