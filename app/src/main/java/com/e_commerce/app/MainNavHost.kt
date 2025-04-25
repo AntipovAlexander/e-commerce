@@ -1,6 +1,7 @@
 package com.e_commerce.app
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -11,9 +12,10 @@ import com.e_commerce.onboarding.navigation.OnboardingRoute
 import com.e_commerce.onboarding.navigation.onboardingGraph
 
 @Composable
-fun MainActivity.MainNavHost() {
+fun MainActivity.MainNavHost(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     NavHost(
+        modifier = modifier,
         navController = navController,
         startDestination = OnboardingRoute,
     ) {
