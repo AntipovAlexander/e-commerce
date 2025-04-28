@@ -3,11 +3,14 @@ plugins {
 }
 
 android {
-    namespace = "com.e_commerce.core.theme"
+    namespace = "com.e_commerce.core.ui"
 }
 
 dependencies {
+    implementation(project(":core:theme"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.ktx)
     implementation(libs.bundles.ui)
+    implementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.tooling.preview)
 }

@@ -8,6 +8,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:theme"))
     implementation(project(":features:main:home"))
     implementation(project(":features:main:browse"))
     implementation(project(":features:main:favourites"))
