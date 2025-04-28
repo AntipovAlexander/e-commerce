@@ -8,8 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.e_commerce.main.navigation.graph.MainScreenGraphRoute
 import com.e_commerce.main.navigation.graph.mainScreenGraph
-import com.e_commerce.onboarding.navigation.OnboardingRoute
-import com.e_commerce.onboarding.navigation.onboardingGraph
+import com.e_commerce.onboarding.navigation.graph.OnboardingGraphRoute
+import com.e_commerce.onboarding.navigation.graph.onboardingGraph
 
 @Composable
 fun MainActivity.MainNavHost(modifier: Modifier = Modifier) {
@@ -17,7 +17,7 @@ fun MainActivity.MainNavHost(modifier: Modifier = Modifier) {
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = OnboardingRoute,
+        startDestination = OnboardingGraphRoute,
     ) {
         onboardingGraph(
             navController = navController,
@@ -29,6 +29,6 @@ fun MainActivity.MainNavHost(modifier: Modifier = Modifier) {
 
 private fun NavGraphBuilder.switchToMainGraph(navController: NavHostController) {
     navController.navigate(MainScreenGraphRoute) {
-        popUpTo<OnboardingRoute> { inclusive = true }
+        popUpTo<OnboardingGraphRoute> { inclusive = true }
     }
 }

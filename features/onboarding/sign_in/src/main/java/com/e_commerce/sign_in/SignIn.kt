@@ -19,8 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.e_commerce.core.ui.buttons.PrimaryButton
-import com.e_commerce.core.ui.inputs.PrimaryInput
+import com.e_commerce.core.ui.widgets.buttons.PrimaryButton
+import com.e_commerce.core.ui.widgets.inputs.PrimaryInput
 
 @Composable
 fun SignInScreen(

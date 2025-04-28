@@ -1,4 +1,4 @@
-package com.e_commerce.core.ui.inputs
+package com.e_commerce.core.ui.widgets.inputs
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.fillMaxWidth

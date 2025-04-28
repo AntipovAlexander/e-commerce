@@ -17,7 +17,7 @@ fun Theme(
 
     CompositionLocalProvider(
         LocalAppColors provides colors,
-        LocalAppSpacings provides defaultSpacings,
+        LocalAppDimens provides defaultDimens,
         LocalAppShapes provides defaultShapes,
         LocalAppTypography provides defaultTypography,
         content = content
@@ -30,10 +30,10 @@ object Theme {
         @ReadOnlyComposable
         get() = LocalAppColors.current
 
-    val spacings: AppSpacings
+    val dimens: AppDimens
         @Composable
         @ReadOnlyComposable
-        get() = LocalAppSpacings.current
+        get() = LocalAppDimens.current
 
     val shapes: AppShapes
         @Composable
