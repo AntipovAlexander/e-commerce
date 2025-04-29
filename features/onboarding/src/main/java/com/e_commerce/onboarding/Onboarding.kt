@@ -111,7 +111,8 @@ private fun ColumnScope.TopContent(pagerState: PagerState) {
     ) {
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            beyondViewportPageCount = 2
         ) { page ->
             Image(
                 modifier = Modifier.fillMaxSize(),
