@@ -6,7 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
-import com.e_commerce.core.theme.Theme
+import com.e_commerce.core.ui.theme.Theme
 
 @Composable
 fun PrimaryButton(

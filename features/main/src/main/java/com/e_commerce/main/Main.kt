@@ -20,7 +20,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.e_commerce.core.theme.Theme
+import com.e_commerce.core.ui.theme.Theme
 import com.e_commerce.main.navigation.bottom.BottomNavigationItem
 import com.e_commerce.main.navigation.bottom.bottomNavigationGraph
 

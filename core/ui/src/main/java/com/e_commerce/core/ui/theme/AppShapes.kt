@@ -1,4 +1,4 @@
-package com.e_commerce.core.theme
+package com.e_commerce.core.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.staticCompositionLocalOf

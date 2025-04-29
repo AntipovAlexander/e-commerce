@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import com.e_commerce.core.theme.Theme
+import com.e_commerce.core.ui.theme.Theme
 
 @Composable
 fun HorizontalDivider(

@@ -8,7 +8,7 @@ android {
 
 dependencies {
 
-    implementation(project(":core:theme"))
+    implementation(project(":core:ui"))
     implementation(project(":features:onboarding"))
     implementation(project(":features:main"))
 

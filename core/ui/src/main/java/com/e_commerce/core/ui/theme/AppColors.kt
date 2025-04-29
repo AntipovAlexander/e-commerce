@@ -1,9 +1,10 @@
-package com.e_commerce.core.theme
+package com.e_commerce.core.ui.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import com.e_commerce.core.ui.R
 
 data class AppColors(
     val backgroundPrimary: Color,

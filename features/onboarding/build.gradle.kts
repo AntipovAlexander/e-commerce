@@ -8,7 +8,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:theme"))
     implementation(project(":core:ui"))
     implementation(project(":features:onboarding:sign_up"))
     implementation(project(":features:onboarding:sign_in"))
