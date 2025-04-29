@@ -21,7 +21,7 @@ fun NavGraphBuilder.onboardingGraph(
     navigation<OnboardingGraphRoute>(startDestination = OnboardingScreenRoute) {
         composable<OnboardingScreenRoute> {
             OnboardingScreen {
-                navController.navigate(SignInRoute) {
+                navController.navigate(SignUpRoute) {
                     popUpTo(navController.graph.findStartDestination().id) {
                         inclusive = true
                     }

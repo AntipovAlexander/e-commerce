@@ -20,9 +20,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 )
                 consumerProguardFiles("consumer-rules.pro")
             }
-
             setupCompileOptions(tasks)
-            setupBuildTypes()
             enableCompose()
         }
     }

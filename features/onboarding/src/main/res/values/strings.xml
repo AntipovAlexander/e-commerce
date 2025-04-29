@@ -7,5 +7,6 @@
     <string name="slider_description_2">Enjoy a smooth and secure shopping experience right from your phone. Buy what you need, whenever you want.</string>
     <string name="slider_description_3">Your orders are packed with care and delivered quickly to your door, so you can shop with complete confidence.</string>
     <string name="skip">Skip</string>
-    <string name="next">Continue</string>
+    <string name="next">Next</string>
+    <string name="got_it">Got it!</string>
 </resources>

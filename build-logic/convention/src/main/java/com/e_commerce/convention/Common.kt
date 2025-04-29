@@ -14,18 +14,6 @@ import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
-fun <A : BuildFeatures, B : BuildType, C : DefaultConfig, D : ProductFlavor, E : AndroidResources, F : Installation> CommonExtension<A, B, C, D, E, F>.setupBuildTypes() {
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-}
-
 fun <
         A : BuildFeatures,
         B : BuildType,

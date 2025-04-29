@@ -198,7 +198,10 @@ private fun ColumnScope.ButtonsContainer(
                 .width(with(LocalDensity.current) { continueButtonWidth.toDp() })
                 .align(Alignment.CenterEnd),
             onClick = onContinueClicked,
-            text = stringResource(R.string.next)
+            text = when (pagerState.currentPage < OnboardingConst.SLIDES_COUNT - 1) {
+                true -> stringResource(R.string.next)
+                false -> stringResource(R.string.got_it)
+            }
         )
     }
 }
