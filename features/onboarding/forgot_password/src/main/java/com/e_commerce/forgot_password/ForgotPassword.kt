@@ -17,9 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ForgotPasswordScreen(
-    onBackClicked: () -> Unit,
-) {
+fun ForgotPasswordScreen(onBackClicked: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -43,7 +41,6 @@ fun ForgotPasswordScreen(
                 Text("Back")
             }
         }
-
     }
 }
 

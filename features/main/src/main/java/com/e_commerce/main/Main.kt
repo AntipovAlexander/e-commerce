@@ -60,10 +60,11 @@ private fun BottomBar(navController: NavController) {
                 label = {
                     Text(
                         item.title,
-                        color = if (navBackStackEntry.isSelected(item.route))
+                        color = if (navBackStackEntry.isSelected(item.route)) {
                             Color.Black
-                        else
+                        } else {
                             Color.Gray
+                        }
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(

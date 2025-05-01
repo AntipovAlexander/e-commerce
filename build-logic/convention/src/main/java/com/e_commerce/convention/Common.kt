@@ -15,13 +15,15 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 fun <
-        A : BuildFeatures,
-        B : BuildType,
-        C : DefaultConfig,
-        D : ProductFlavor,
-        E : AndroidResources,
-        F : Installation
-        > CommonExtension<A, B, C, D, E, F>.setupCompileOptions(tasks: TaskContainer) {
+    A : BuildFeatures,
+    B : BuildType,
+    C : DefaultConfig,
+    D : ProductFlavor,
+    E : AndroidResources,
+    F : Installation
+    > CommonExtension<A, B, C, D, E, F>.setupCompileOptions(
+    tasks: TaskContainer
+) {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -42,4 +44,3 @@ fun DefaultConfig.applyDefaultConfig(minSdkVersion: Int, targetSdkVersion: Int) 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     (this as? ApplicationDefaultConfig)?.let { targetSdk = targetSdkVersion }
 }
-

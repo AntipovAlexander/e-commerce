@@ -17,7 +17,7 @@ fun MainActivity.MainNavHost(modifier: Modifier = Modifier) {
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = OnboardingGraphRoute,
+        startDestination = OnboardingGraphRoute
     ) {
         onboardingGraph(
             navController = navController,

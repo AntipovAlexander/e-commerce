@@ -30,14 +30,11 @@ import com.e_commerce.core.ui.theme.Theme
 import com.e_commerce.core.ui.widgets.inputs.PrimaryInput
 
 @Composable
-fun SignUpScreen(
-    onSignInClicked: () -> Unit,
-    onRestoreClicked: () -> Unit
-) {
+fun SignUpScreen(onSignInClicked: () -> Unit, onRestoreClicked: () -> Unit) {
     val shapeSize = Theme.dimens.triplePad
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
     ) {
         Image(
             modifier = Modifier
@@ -46,7 +43,7 @@ fun SignUpScreen(
                 .align(Alignment.TopCenter),
             painter = painterResource(R.drawable.sign_up_top_image),
             contentScale = ContentScale.Crop,
-            contentDescription = "",
+            contentDescription = ""
         )
         Column(
             modifier = Modifier
@@ -56,7 +53,7 @@ fun SignUpScreen(
                 .clip(containerShape(with(LocalDensity.current) { shapeSize.toPx() }))
                 .background(color = Theme.colors.backgroundPrimary)
                 .padding(horizontal = Theme.dimens.doublePad),
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.Top
         ) {
             var enteredEmail by rememberSaveable { mutableStateOf("") }
             var enteredPassword by rememberSaveable { mutableStateOf("") }
@@ -69,20 +66,19 @@ fun SignUpScreen(
             Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
             PrimaryInput(
                 text = enteredEmail,
-                placeholder = stringResource(R.string.your_email),
+                placeholder = stringResource(R.string.your_email)
             ) { enteredEmail = it }
             Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
             PrimaryInput(
                 text = enteredPassword,
-                placeholder = stringResource(R.string.set_your_password),
+                placeholder = stringResource(R.string.set_your_password)
             ) { enteredPassword = it }
             Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
             PrimaryInput(
                 text = enteredPassword,
-                placeholder = stringResource(R.string.repeat_your_password),
+                placeholder = stringResource(R.string.repeat_your_password)
             ) { enteredPassword = it }
         }
-
     }
 }
 

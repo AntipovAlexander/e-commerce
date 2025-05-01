@@ -18,4 +18,3 @@ internal object OnboardingConst {
         2 to R.drawable.slide_3
     )
 }
-

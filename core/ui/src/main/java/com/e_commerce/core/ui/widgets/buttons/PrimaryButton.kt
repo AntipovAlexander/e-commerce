@@ -26,7 +26,7 @@ fun PrimaryButton(
         shape = Theme.shapes.default,
         colors = ButtonDefaults.buttonColors(
             containerColor = Theme.colors.backgroundAccent,
-            contentColor = Theme.colors.contentOnColorInverse,
+            contentColor = Theme.colors.contentOnColorInverse
         )
     ) {
         Text(

@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 data class AppShapes(
     val small: Shape,
     val default: Shape,
-    val large: Shape,
+    val large: Shape
 )
 
 val defaultShapes = AppShapes(

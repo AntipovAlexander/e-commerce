@@ -56,7 +56,7 @@ private fun font(
 data class AppTypography(
     val heading: Heading,
     val body: Body,
-    val caption: Caption,
+    val caption: Caption
 ) {
     data class Heading(
         val one: One,
@@ -149,7 +149,7 @@ val defaultTypography = AppTypography(
             ),
             bold = font(
                 size = 14.sp,
-                weight = FontWeight.Bold,
+                weight = FontWeight.Bold
             ),
             medium = font(
                 size = 14.sp,

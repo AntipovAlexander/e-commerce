@@ -35,18 +35,22 @@ fun slideOutPop(duration: Int = SLIDE_ANIM_TIME) = slideOutHorizontally(
 )
 
 inline fun <reified T : Any> NavGraphBuilder.slidingComposable(
-    noinline enterTransition:
-    (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
-    EnterTransition?)? = { slideIn() },
-    noinline exitTransition:
-    (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
-    ExitTransition?)? = { slideOut() },
-    noinline popEnterTransition:
-    (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
-    EnterTransition?)? = { slideInPop() },
-    noinline popExitTransition:
-    (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
-    ExitTransition?)? = { slideOutPop() },
+    noinline enterTransition: (
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
+        EnterTransition?
+    )? = { slideIn() },
+    noinline exitTransition: (
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
+        ExitTransition?
+    )? = { slideOut() },
+    noinline popEnterTransition: (
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
+        EnterTransition?
+    )? = { slideInPop() },
+    noinline popExitTransition: (
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
+        ExitTransition?
+    )? = { slideOutPop() },
     noinline content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit
 ) {
     composable<T>(

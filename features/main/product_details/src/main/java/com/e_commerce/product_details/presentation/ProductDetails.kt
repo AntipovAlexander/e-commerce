@@ -23,11 +23,7 @@ fun ProductDetailsScreen(text: String) {
 }
 
 @Composable
-internal fun ProductDetails(
-    text: String,
-    count: Int,
-    onIncrement: () -> Unit
-) {
+internal fun ProductDetails(text: String, count: Int, onIncrement: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

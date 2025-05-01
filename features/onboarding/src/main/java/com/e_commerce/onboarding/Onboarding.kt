@@ -46,8 +46,8 @@ import androidx.compose.ui.unit.Dp
 import com.e_commerce.core.ui.theme.Theme
 import com.e_commerce.core.ui.widgets.buttons.PrimaryButton
 import com.e_commerce.core.ui.widgets.misc.HorizontalDivider
-import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
+import kotlinx.coroutines.launch
 
 @Composable
 fun OnboardingScreen(onProceedToAuthClicked: () -> Unit) {
@@ -55,7 +55,7 @@ fun OnboardingScreen(onProceedToAuthClicked: () -> Unit) {
 
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(-curveCutHeight),
+        verticalArrangement = Arrangement.spacedBy(-curveCutHeight)
     ) {
         val scope = rememberCoroutineScope()
         val imagePagerState = rememberPagerState(pageCount = { OnboardingConst.SLIDES_COUNT })
@@ -79,7 +79,6 @@ fun OnboardingScreen(onProceedToAuthClicked: () -> Unit) {
                     followingState.scrollToPage(page, offset)
                 }
         }
-
 
         TopContent(imagePagerState)
         BottomContent(
@@ -140,13 +139,11 @@ private fun BottomContent(
             .fillMaxWidth()
             .fillMaxHeight(0.35f)
             .clip(topCircledShape(with(LocalDensity.current) { curveCutHeight.toPx() }))
-            .background(color = Theme.colors.backgroundPrimary),
+            .background(color = Theme.colors.backgroundPrimary)
     ) {
-
-
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Bottom,
+            verticalArrangement = Arrangement.Bottom
         ) {
             Spacer(modifier = Modifier.height(curveCutHeight))
             TextPager(
@@ -182,7 +179,7 @@ private fun ColumnScope.ButtonsContainer(
         val space = Theme.dimens.triplePad
         // animate buttons width depending on skip button visibility
         val skipButtonWidth by animateIntAsState(
-            targetValue = if (isSkipVisible) (width / 2 - space.value).roundToInt() else 0,
+            targetValue = if (isSkipVisible) (width / 2 - space.value).roundToInt() else 0
         )
         val continueButtonWidth by animateIntAsState(
             targetValue = if (isSkipVisible) (width / 2 - space.value).roundToInt() else width
@@ -262,7 +259,6 @@ private fun topCircledShape(curveHeightPx: Float) = GenericShape { size, _ ->
 
 @Composable
 @Preview
-private fun OnboardingScreenPreview(
-) {
+private fun OnboardingScreenPreview() {
     OnboardingScreen(onProceedToAuthClicked = {})
 }

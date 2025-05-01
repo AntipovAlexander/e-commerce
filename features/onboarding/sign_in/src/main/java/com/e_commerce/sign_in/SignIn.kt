@@ -43,7 +43,7 @@ fun SignInScreen(
     val shapeSize = Theme.dimens.triplePad
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
     ) {
         Image(
             modifier = Modifier
@@ -52,7 +52,7 @@ fun SignInScreen(
                 .align(Alignment.TopCenter),
             painter = painterResource(R.drawable.sign_in_top_image),
             contentScale = ContentScale.Crop,
-            contentDescription = "",
+            contentDescription = ""
         )
         Column(
             modifier = Modifier
@@ -62,7 +62,7 @@ fun SignInScreen(
                 .clip(containerShape(with(LocalDensity.current) { shapeSize.toPx() }))
                 .background(color = Theme.colors.backgroundPrimary)
                 .padding(horizontal = Theme.dimens.doublePad),
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.Top
         ) {
             var enteredEmail by rememberSaveable { mutableStateOf("") }
             var enteredPassword by rememberSaveable { mutableStateOf("") }
@@ -75,12 +75,12 @@ fun SignInScreen(
             Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
             PrimaryInput(
                 text = enteredEmail,
-                placeholder = stringResource(R.string.your_email),
+                placeholder = stringResource(R.string.your_email)
             ) { enteredEmail = it }
             Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
             PrimaryInput(
                 text = enteredPassword,
-                placeholder = stringResource(R.string.your_password),
+                placeholder = stringResource(R.string.your_password)
             ) { enteredPassword = it }
             Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
             PrimaryButton(
@@ -99,7 +99,7 @@ fun SignInScreen(
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 style = Theme.typography.body.one.regular,
-                text = stringResource(R.string.or),
+                text = stringResource(R.string.or)
             )
             TextButton(
                 modifier = Modifier.fillMaxWidth(),

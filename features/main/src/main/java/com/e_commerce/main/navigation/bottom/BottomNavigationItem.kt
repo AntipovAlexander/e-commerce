@@ -7,10 +7,10 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.e_commerce.main.navigation.bottom.routes.BrowseGraphRoute
 import com.e_commerce.main.navigation.bottom.routes.CartGraphRoute
 import com.e_commerce.main.navigation.bottom.routes.FavouritesGraphRoute
 import com.e_commerce.main.navigation.bottom.routes.HomeGraphRoute
-import com.e_commerce.main.navigation.bottom.routes.BrowseGraphRoute
 import com.e_commerce.profile.ProfileRoute
 
 enum class BottomNavigationItem(
@@ -42,5 +42,5 @@ enum class BottomNavigationItem(
         title = "Profile",
         icon = Icons.Default.Person,
         route = ProfileRoute
-    ),
+    )
 }

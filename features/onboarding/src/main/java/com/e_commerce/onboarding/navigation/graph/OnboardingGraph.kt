@@ -16,10 +16,7 @@ import com.e_commerce.sign_in.SignInScreen
 import com.e_commerce.sign_up.SignUpRoute
 import com.e_commerce.sign_up.SignUpScreen
 
-fun NavGraphBuilder.onboardingGraph(
-    navController: NavController,
-    onUserLoggedIn: () -> Unit,
-) {
+fun NavGraphBuilder.onboardingGraph(navController: NavController, onUserLoggedIn: () -> Unit) {
     navigation<OnboardingGraphRoute>(startDestination = OnboardingScreenRoute) {
         composable<OnboardingScreenRoute> {
             OnboardingScreen {
@@ -32,8 +29,11 @@ fun NavGraphBuilder.onboardingGraph(
         }
         slidingComposable<SignInRoute>(
             enterTransition = {
-                if (navController.previousBackStackEntry == null) null
-                else slideIn()
+                if (navController.previousBackStackEntry == null) {
+                    null
+                } else {
+                    slideIn()
+                }
             }
         ) {
             SignInScreen(
@@ -55,4 +55,3 @@ fun NavGraphBuilder.onboardingGraph(
         }
     }
 }
-
