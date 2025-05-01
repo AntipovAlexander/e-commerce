@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.e_commerce.core.navigation"
+    namespace = "com.ecommerce.core.navigation"
 }
 
 dependencies {

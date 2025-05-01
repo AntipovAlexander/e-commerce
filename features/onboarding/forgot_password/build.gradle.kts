@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.e_commerce.forgot_password"
+    namespace = "com.ecommerce.forgot"
 }
 
 dependencies {

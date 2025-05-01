@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.e_commerce.onboarding"
+    namespace = "com.ecommerce.onboarding"
 }
 
 dependencies {

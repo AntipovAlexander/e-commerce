@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.e_commerce.core.ui"
+    namespace = "com.ecommerce.core.ui"
 }
 
 dependencies {

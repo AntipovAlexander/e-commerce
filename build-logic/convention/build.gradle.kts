@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.e_commerce.buildlogic"
+group = "com.ecommerce.buildlogic"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -18,11 +18,11 @@ gradlePlugin {
     plugins {
         register("convention.android.application") {
             id = "convention.android.application"
-            implementationClass = "com.e_commerce.convention.AndroidApplicationConventionPlugin"
+            implementationClass = "com.ecommerce.convention.AndroidApplicationConventionPlugin"
         }
         register("convention.android.library") {
             id = "convention.android.library"
-            implementationClass = "com.e_commerce.convention.AndroidLibraryConventionPlugin"
+            implementationClass = "com.ecommerce.convention.AndroidLibraryConventionPlugin"
         }
     }
 }

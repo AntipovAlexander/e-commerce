@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.e_commerce.cart"
+    namespace = "com.ecommerce.cart"
 }
 
 dependencies {

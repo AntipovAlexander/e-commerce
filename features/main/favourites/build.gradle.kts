@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.e_commerce.favourites"
+    namespace = "com.ecommerce.favourites"
 }
 
 dependencies {

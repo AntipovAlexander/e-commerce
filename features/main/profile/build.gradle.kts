@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.e_commerce.profile"
+    namespace = "com.ecommerce.profile"
 }
 
 dependencies {

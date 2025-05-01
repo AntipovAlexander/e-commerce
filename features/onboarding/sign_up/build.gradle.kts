@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.e_commerce.sign_up"
+    namespace = "com.ecommerce.signup"
 }
 
 dependencies {
