@@ -26,6 +26,7 @@ fun PrimaryInput(
     @DrawableRes iconRes: Int? = null,
     onChange: (String) -> Unit
 ) {
+//    CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
     TextField(
         value = text,
         onValueChange = onChange,
@@ -63,4 +64,5 @@ fun PrimaryInput(
         textStyle = Theme.typography.body.one.regular,
         keyboardOptions = keyboardOptions
     )
+//    }
 }

@@ -86,7 +86,8 @@ data class AppTypography(
         val three: Three
     ) {
         data class One(
-            val regular: TextStyle
+            val regular: TextStyle,
+            val underline: TextStyle
         )
 
         data class Two(
@@ -163,6 +164,12 @@ val defaultTypography = AppTypography(
                 size = 14.sp,
                 weight = FontWeight.Normal,
                 height = 20.sp
+            ),
+            underline = font(
+                size = 14.sp,
+                weight = FontWeight.Normal,
+                height = 20.sp,
+                decoration = TextDecoration.Underline
             )
         ),
         two = AppTypography.Body.Two(

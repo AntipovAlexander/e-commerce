@@ -1,66 +1,99 @@
 package com.e_commerce.sign_up
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.e_commerce.core.ui.theme.Theme
+import com.e_commerce.core.ui.widgets.inputs.PrimaryInput
 
 @Composable
 fun SignUpScreen(
     onSignInClicked: () -> Unit,
     onRestoreClicked: () -> Unit
 ) {
-    Column(
+    val shapeSize = Theme.dimens.triplePad
+    Box(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxSize(),
     ) {
-        // "Sign in" text at the top
-        Text(
-            text = "SIGN UP",
-            style = MaterialTheme.typography.labelLarge
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.5f)
+                .align(Alignment.TopCenter),
+            painter = painterResource(R.drawable.sign_up_top_image),
+            contentScale = ContentScale.Crop,
+            contentDescription = "",
         )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Row with "Don't have an account?" text and "Sign up" button
-        Row(
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.6f)
+                .align(Alignment.BottomCenter)
+                .clip(containerShape(with(LocalDensity.current) { shapeSize.toPx() }))
+                .background(color = Theme.colors.backgroundPrimary)
+                .padding(horizontal = Theme.dimens.doublePad),
+            verticalArrangement = Arrangement.Top,
         ) {
-            Text(text = "Already have an account?")
-            Spacer(modifier = Modifier.width(8.dp))
-            Button(onClick = onSignInClicked) {
-                Text("Sign in")
-            }
+            var enteredEmail by rememberSaveable { mutableStateOf("") }
+            var enteredPassword by rememberSaveable { mutableStateOf("") }
+            Spacer(modifier = Modifier.height(shapeSize + Theme.dimens.doublePad))
+            Text(
+                text = stringResource(R.string.lets_get_started),
+                style = Theme.typography.heading.one.semiBold,
+                color = Theme.colors.contentPrimary
+            )
+            Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
+            PrimaryInput(
+                text = enteredEmail,
+                placeholder = stringResource(R.string.your_email),
+            ) { enteredEmail = it }
+            Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
+            PrimaryInput(
+                text = enteredPassword,
+                placeholder = stringResource(R.string.set_your_password),
+            ) { enteredPassword = it }
+            Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
+            PrimaryInput(
+                text = enteredPassword,
+                placeholder = stringResource(R.string.repeat_your_password),
+            ) { enteredPassword = it }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Row with "Forgot password?" text and "Restore" button
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = "Forgot password?")
-            Spacer(modifier = Modifier.width(8.dp))
-            Button(onClick = onRestoreClicked) {
-                Text("Restore")
-            }
-        }
     }
+}
+
+private fun containerShape(curveHeightPx: Float) = GenericShape { size, _ ->
+    val w = size.width
+    val h = size.height
+    moveTo(0f, curveHeightPx)
+    quadraticTo(x1 = 3 * w / 4f, y1 = 2 * curveHeightPx, x2 = w, y2 = curveHeightPx)
+    lineTo(w, h)
+    lineTo(0f, h)
+    close()
 }
 
 @Preview(showBackground = true)
