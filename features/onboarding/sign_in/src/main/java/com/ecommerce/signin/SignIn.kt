@@ -113,6 +113,7 @@ private fun BoxScope.ButtonsContainer(
         Text(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             style = Theme.typography.body.one.regular,
+            color = Theme.colors.contentSecondary,
             text = stringResource(R.string.or)
         )
         TextButton(
