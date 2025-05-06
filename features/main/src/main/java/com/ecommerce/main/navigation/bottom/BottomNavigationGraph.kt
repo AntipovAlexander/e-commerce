@@ -1,6 +1,7 @@
 package com.ecommerce.main.navigation.bottom
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.compose.NavHost
@@ -39,7 +40,7 @@ fun NavController.bottomNavigationGraph() = createGraph(startDestination = HomeG
         Graph { it.cartGraph() }
     }
     composable<ProfileRoute> {
-        ProfileScreen { }
+        ProfileScreen(onOpenDetailsClick = {})
     }
 }
 
@@ -54,11 +55,11 @@ private fun Graph(builder: (NavController) -> NavGraph) {
 
 private fun NavController.homeGraph() = createGraph(startDestination = HomeRoute) {
     composable<HomeRoute> {
-        HomeScreen { navigate(ProductDetailsRoute("Home")) }
+        HomeScreen(onOpenDetailsClick = { navigate(ProductDetailsRoute("Home")) })
     }
     composable<ProductDetailsRoute> { backStackEntry ->
         val route: ProductDetailsRoute = backStackEntry.toRoute()
-        ProductDetailsScreen(route.cameFrom)
+        ProductDetailsScreen(text = route.cameFrom, viewModel = viewModel())
     }
 }
 
@@ -70,26 +71,26 @@ private fun NavController.browserGraph() = createGraph(startDestination = Browse
     }
     composable<ProductDetailsRoute> { backStackEntry ->
         val route: ProductDetailsRoute = backStackEntry.toRoute()
-        ProductDetailsScreen(route.cameFrom)
+        ProductDetailsScreen(text = route.cameFrom, viewModel = viewModel())
     }
 }
 
 private fun NavController.favouritesGraph() = createGraph(startDestination = FavouritesRoute) {
     composable<FavouritesRoute> {
-        FavouritesScreen { navigate(ProductDetailsRoute("Favourites")) }
+        FavouritesScreen(onOpenDetailsClick = { navigate(ProductDetailsRoute("Favourites")) })
     }
     composable<ProductDetailsRoute> { backStackEntry ->
         val route: ProductDetailsRoute = backStackEntry.toRoute()
-        ProductDetailsScreen(route.cameFrom)
+        ProductDetailsScreen(text = route.cameFrom, viewModel = viewModel())
     }
 }
 
 private fun NavController.cartGraph() = createGraph(startDestination = CartRoute) {
     composable<CartRoute> {
-        CartScreen { navigate(ProductDetailsRoute("Cart")) }
+        CartScreen(onOpenDetailsClick = { navigate(ProductDetailsRoute("Cart")) })
     }
     composable<ProductDetailsRoute> { backStackEntry ->
         val route: ProductDetailsRoute = backStackEntry.toRoute()
-        ProductDetailsScreen(route.cameFrom)
+        ProductDetailsScreen(text = route.cameFrom, viewModel = viewModel())
     }
 }

@@ -14,9 +14,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun FavouritesScreen(onOpenDetailsClick: () -> Unit) {
+fun FavouritesScreen(
+    onOpenDetailsClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -30,6 +33,6 @@ fun FavouritesScreen(onOpenDetailsClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun FavouritesScreenPreview() {
+private fun FavouritesScreenPreview() {
     FavouritesScreen(onOpenDetailsClick = {})
 }

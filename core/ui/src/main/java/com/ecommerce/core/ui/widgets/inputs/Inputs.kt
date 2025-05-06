@@ -18,15 +18,14 @@ import com.ecommerce.core.ui.theme.Theme
 
 @Composable
 fun PrimaryInput(
-    modifier: Modifier = Modifier,
     text: String,
     placeholder: String,
+    onChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     singleLine: Boolean = true,
     @DrawableRes iconRes: Int? = null,
-    onChange: (String) -> Unit
 ) {
-//    CompositionLocalProvider(LocalTextSelectionColors provides customTextSelectionColors) {
     TextField(
         value = text,
         onValueChange = onChange,
@@ -64,5 +63,4 @@ fun PrimaryInput(
         textStyle = Theme.typography.body.one.regular,
         keyboardOptions = keyboardOptions
     )
-//    }
 }

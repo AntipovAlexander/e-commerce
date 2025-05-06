@@ -14,9 +14,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CartScreen(onOpenDetailsClick: () -> Unit) {
+fun CartScreen(
+    onOpenDetailsClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -30,6 +33,6 @@ fun CartScreen(onOpenDetailsClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun CartScreenPreview() {
+private fun CartScreenPreview() {
     CartScreen(onOpenDetailsClick = {})
 }

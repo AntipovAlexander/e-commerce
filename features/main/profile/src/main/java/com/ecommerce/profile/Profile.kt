@@ -14,9 +14,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ProfileScreen(onOpenDetailsClick: () -> Unit) {
+fun ProfileScreen(
+    onOpenDetailsClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -30,6 +33,6 @@ fun ProfileScreen(onOpenDetailsClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun ProfileScreenPreview() {
+private fun ProfileScreenPreview() {
     ProfileScreen(onOpenDetailsClick = {})
 }

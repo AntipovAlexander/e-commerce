@@ -14,14 +14,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.ecommerce.core.ui.theme.LocalAppDimens
 
 @Composable
-fun ForgotPasswordScreen(onBackClicked: () -> Unit) {
+fun ForgotPasswordScreen(
+    onBackClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(LocalAppDimens.current.doublePad),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -31,13 +34,13 @@ fun ForgotPasswordScreen(onBackClicked: () -> Unit) {
             style = MaterialTheme.typography.labelLarge
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(LocalAppDimens.current.triplePad))
 
         // Row with "Don't have an account?" text and "Sign up" button
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(onClick = onBackClicked) {
+            Button(onClick = onBackClick) {
                 Text("Back")
             }
         }
@@ -46,6 +49,6 @@ fun ForgotPasswordScreen(onBackClicked: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun ForgotPasswordPreview() {
-    ForgotPasswordScreen(onBackClicked = {})
+private fun ForgotPasswordPreview() {
+    ForgotPasswordScreen(onBackClick = {})
 }

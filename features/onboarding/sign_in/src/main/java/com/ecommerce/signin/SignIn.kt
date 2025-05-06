@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -29,85 +30,97 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import com.ecommerce.core.ui.theme.Theme
 import com.ecommerce.core.ui.widgets.buttons.PrimaryButton
 import com.ecommerce.core.ui.widgets.buttons.TextButton
 import com.ecommerce.core.ui.widgets.inputs.PrimaryInput
 
+private const val IMAGE_CONTAINER_RATIO = 0.5f
+private const val BUTTONS_CONTAINER_RATIO = 0.6f
+
 @Composable
 fun SignInScreen(
-    onSignUpClicked: () -> Unit,
-    onRestoreClicked: () -> Unit,
-    onLoggedIn: () -> Unit
+    onSignUpClick: () -> Unit,
+    onRestoreClick: () -> Unit,
+    onLoggedIn: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val shapeSize = Theme.dimens.triplePad
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
+    Box(modifier = modifier.fillMaxSize()) {
         Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.5f)
+                .fillMaxHeight(IMAGE_CONTAINER_RATIO)
                 .align(Alignment.TopCenter),
             painter = painterResource(R.drawable.sign_in_top_image),
             contentScale = ContentScale.Crop,
             contentDescription = ""
         )
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.6f)
-                .align(Alignment.BottomCenter)
-                .clip(containerShape(with(LocalDensity.current) { shapeSize.toPx() }))
-                .background(color = Theme.colors.backgroundPrimary)
-                .padding(horizontal = Theme.dimens.doublePad),
-            verticalArrangement = Arrangement.Top
-        ) {
-            var enteredEmail by rememberSaveable { mutableStateOf("") }
-            var enteredPassword by rememberSaveable { mutableStateOf("") }
-            Spacer(modifier = Modifier.height(shapeSize + Theme.dimens.doublePad))
-            Text(
-                text = stringResource(R.string.welcome_back),
-                style = Theme.typography.heading.one.semiBold,
-                color = Theme.colors.contentPrimary
-            )
-            Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
-            PrimaryInput(
-                text = enteredEmail,
-                placeholder = stringResource(R.string.your_email)
-            ) { enteredEmail = it }
-            Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
-            PrimaryInput(
-                text = enteredPassword,
-                placeholder = stringResource(R.string.your_password)
-            ) { enteredPassword = it }
-            Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
-            PrimaryButton(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(R.string.log_in)
-            ) {
-                // todo
-                onLoggedIn()
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            TextButton(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(R.string.dont_have_an_account),
-                onClick = onSignUpClicked
-            )
-            Text(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                style = Theme.typography.body.one.regular,
-                text = stringResource(R.string.or)
-            )
-            TextButton(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(R.string.forgot_password),
-                onClick = onRestoreClicked
-            )
-            Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.systemBars))
-        }
+        ButtonsContainer(shapeSize, onLoggedIn, onSignUpClick, onRestoreClick)
+    }
+}
+
+@Composable
+private fun BoxScope.ButtonsContainer(
+    shapeSize: Dp,
+    onLoggedIn: () -> Unit,
+    onSignUpClick: () -> Unit,
+    onRestoreClick: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(BUTTONS_CONTAINER_RATIO)
+            .align(Alignment.BottomCenter)
+            .clip(containerShape(with(LocalDensity.current) { shapeSize.toPx() }))
+            .background(color = Theme.colors.backgroundPrimary)
+            .padding(horizontal = Theme.dimens.doublePad),
+        verticalArrangement = Arrangement.Top
+    ) {
+        var enteredEmail by rememberSaveable { mutableStateOf("") }
+        var enteredPassword by rememberSaveable { mutableStateOf("") }
+        Spacer(modifier = Modifier.height(shapeSize + Theme.dimens.doublePad))
+        Text(
+            text = stringResource(R.string.welcome_back),
+            style = Theme.typography.heading.one.semiBold,
+            color = Theme.colors.contentPrimary
+        )
+        Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
+        PrimaryInput(
+            text = enteredEmail,
+            onChange = { enteredEmail = it },
+            placeholder = stringResource(R.string.your_email)
+        )
+        Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
+        PrimaryInput(
+            text = enteredPassword,
+            onChange = { enteredPassword = it },
+            placeholder = stringResource(R.string.your_password)
+        )
+        Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
+        PrimaryButton(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = onLoggedIn,
+            text = stringResource(R.string.log_in)
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        TextButton(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(R.string.dont_have_an_account),
+            onClick = onSignUpClick
+        )
+        Text(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            style = Theme.typography.body.one.regular,
+            text = stringResource(R.string.or)
+        )
+        TextButton(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(R.string.forgot_password),
+            onClick = onRestoreClick
+        )
+        Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.systemBars))
     }
 }
 
@@ -123,6 +136,6 @@ private fun containerShape(curveHeightPx: Float) = GenericShape { size, _ ->
 
 @Preview(showBackground = true)
 @Composable
-fun SignInScreenPreview() {
-    SignInScreen(onSignUpClicked = {}, onRestoreClicked = {}, onLoggedIn = {})
+private fun SignInScreenPreview() {
+    SignInScreen(onSignUpClick = {}, onRestoreClick = {}, onLoggedIn = {})
 }

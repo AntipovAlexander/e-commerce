@@ -27,19 +27,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.ecommerce.core.ui.theme.Theme
+import com.ecommerce.core.ui.widgets.buttons.PrimaryButton
 import com.ecommerce.core.ui.widgets.inputs.PrimaryInput
 
+private const val IMAGE_CONTAINER_RATIO = 0.5f
+private const val BUTTONS_CONTAINER_RATIO = 0.6f
+
 @Composable
-fun SignUpScreen(onSignInClicked: () -> Unit, onRestoreClicked: () -> Unit) {
+fun SignUpScreen(
+    onSignUpClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     val shapeSize = Theme.dimens.triplePad
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
+    Box(modifier = modifier.fillMaxSize()) {
         Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.5f)
+                .fillMaxHeight(IMAGE_CONTAINER_RATIO)
                 .align(Alignment.TopCenter),
             painter = painterResource(R.drawable.sign_up_top_image),
             contentScale = ContentScale.Crop,
@@ -48,7 +52,7 @@ fun SignUpScreen(onSignInClicked: () -> Unit, onRestoreClicked: () -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.6f)
+                .fillMaxHeight(BUTTONS_CONTAINER_RATIO)
                 .align(Alignment.BottomCenter)
                 .clip(containerShape(with(LocalDensity.current) { shapeSize.toPx() }))
                 .background(color = Theme.colors.backgroundPrimary)
@@ -66,18 +70,22 @@ fun SignUpScreen(onSignInClicked: () -> Unit, onRestoreClicked: () -> Unit) {
             Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
             PrimaryInput(
                 text = enteredEmail,
+                onChange = { enteredEmail = it },
                 placeholder = stringResource(R.string.your_email)
-            ) { enteredEmail = it }
+            )
             Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
             PrimaryInput(
                 text = enteredPassword,
+                onChange = { enteredPassword = it },
                 placeholder = stringResource(R.string.set_your_password)
-            ) { enteredPassword = it }
+            )
             Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
             PrimaryInput(
                 text = enteredPassword,
+                onChange = { enteredPassword = it },
                 placeholder = stringResource(R.string.repeat_your_password)
-            ) { enteredPassword = it }
+            )
+            PrimaryButton(text = stringResource(R.string.sign_up), onClick = onSignUpClick)
         }
     }
 }
@@ -94,6 +102,6 @@ private fun containerShape(curveHeightPx: Float) = GenericShape { size, _ ->
 
 @Preview(showBackground = true)
 @Composable
-fun SignUpScreenPreview() {
-    SignUpScreen(onSignInClicked = {}, onRestoreClicked = {})
+private fun SignUpScreenPreview() {
+    SignUpScreen(onSignUpClick = {})
 }

@@ -46,15 +46,20 @@ import androidx.compose.ui.unit.Dp
 import com.ecommerce.core.ui.theme.Theme
 import com.ecommerce.core.ui.widgets.buttons.PrimaryButton
 import com.ecommerce.core.ui.widgets.misc.HorizontalDivider
-import kotlin.math.roundToInt
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
+
+private const val BUTTONS_CONTAINER_RATIO = 0.35f
 
 @Composable
-fun OnboardingScreen(onProceedToAuthClicked: () -> Unit) {
+fun OnboardingScreen(
+    onProceedToAuthClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     val curveCutHeight = Theme.dimens.triplePad
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(-curveCutHeight)
     ) {
         val scope = rememberCoroutineScope()
@@ -84,14 +89,14 @@ fun OnboardingScreen(onProceedToAuthClicked: () -> Unit) {
         BottomContent(
             pagerState = textPagerState,
             curveCutHeight = curveCutHeight,
-            onSkipClicked = onProceedToAuthClicked,
-            onContinueClicked = {
+            onSkipClick = onProceedToAuthClick,
+            onContinueClick = {
                 when (textPagerState.settledPage < OnboardingConst.SLIDES_COUNT - 1) {
                     true -> scope.launch {
                         textPagerState.animateScrollToPage(textPagerState.settledPage + 1)
                     }
 
-                    false -> onProceedToAuthClicked()
+                    false -> onProceedToAuthClick()
                 }
             }
         )
@@ -131,13 +136,13 @@ private fun ColumnScope.TopContent(pagerState: PagerState) {
 private fun BottomContent(
     pagerState: PagerState,
     curveCutHeight: Dp,
-    onSkipClicked: () -> Unit,
-    onContinueClicked: () -> Unit
+    onSkipClick: () -> Unit,
+    onContinueClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.35f)
+            .fillMaxHeight(BUTTONS_CONTAINER_RATIO)
             .clip(topCircledShape(with(LocalDensity.current) { curveCutHeight.toPx() }))
             .background(color = Theme.colors.backgroundPrimary)
     ) {
@@ -151,7 +156,7 @@ private fun BottomContent(
                 modifier = Modifier.padding(Theme.dimens.doublePad)
             )
             HorizontalDivider()
-            ButtonsContainer(pagerState, onSkipClicked, onContinueClicked)
+            ButtonsContainer(pagerState, onSkipClick, onContinueClick)
             Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.systemBars))
         }
     }
@@ -160,8 +165,8 @@ private fun BottomContent(
 @Composable
 private fun ColumnScope.ButtonsContainer(
     pagerState: PagerState,
-    onSkipClicked: () -> Unit,
-    onContinueClicked: () -> Unit
+    onSkipClick: () -> Unit,
+    onContinueClick: () -> Unit
 ) {
     var width by remember { mutableIntStateOf(0) }
     val isSkipVisible by remember {
@@ -189,13 +194,13 @@ private fun ColumnScope.ButtonsContainer(
                 .align(Alignment.CenterStart)
                 .width(with(LocalDensity.current) { skipButtonWidth.toDp() }),
             text = stringResource(R.string.skip),
-            onClick = onSkipClicked
+            onClick = onSkipClick
         )
         PrimaryButton(
             modifier = Modifier
                 .width(with(LocalDensity.current) { continueButtonWidth.toDp() })
                 .align(Alignment.CenterEnd),
-            onClick = onContinueClicked,
+            onClick = onContinueClick,
             text = when (pagerState.currentPage < OnboardingConst.SLIDES_COUNT - 1) {
                 true -> stringResource(R.string.next)
                 false -> stringResource(R.string.got_it)
@@ -260,5 +265,5 @@ private fun topCircledShape(curveHeightPx: Float) = GenericShape { size, _ ->
 @Composable
 @Preview
 private fun OnboardingScreenPreview() {
-    OnboardingScreen(onProceedToAuthClicked = {})
+    OnboardingScreen(onProceedToAuthClick = {})
 }

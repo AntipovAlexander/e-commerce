@@ -16,10 +16,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun ProductDetailsScreen(text: String) {
-    val vm: ProductDetailsViewModel = viewModel()
-    val count by vm.count
-    ProductDetails(text, count, vm::increment)
+fun ProductDetailsScreen(
+    viewModel: ProductDetailsViewModel,
+    text: String
+) {
+    val count by viewModel.count
+    ProductDetails(text, count, viewModel::increment)
 }
 
 @Composable
@@ -40,7 +42,8 @@ internal fun ProductDetails(text: String, count: Int, onIncrement: () -> Unit) {
 }
 
 @Preview(showBackground = true)
+@Suppress("MagicNumber")
 @Composable
-fun ProfilePreview() {
-    ProductDetails(text = "Preview", 101, {})
+private fun ProfilePreview() {
+    ProductDetails(text = "Preview", count = 101, onIncrement = {})
 }

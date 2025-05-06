@@ -15,10 +15,10 @@ import com.ecommerce.core.ui.theme.ripple
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextButton(
-    modifier: Modifier = Modifier,
     text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    onClick: () -> Unit
 ) {
     CompositionLocalProvider(
         LocalRippleConfiguration provides ripple()

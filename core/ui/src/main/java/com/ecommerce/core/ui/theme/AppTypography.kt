@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalTextApi::class)
+@file:Suppress("MagicNumber")
 
 package com.ecommerce.core.ui.theme
 

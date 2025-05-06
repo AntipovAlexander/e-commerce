@@ -14,9 +14,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun HomeScreen(onOpenDetailsClick: () -> Unit) {
+fun HomeScreen(
+    onOpenDetailsClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -30,6 +33,6 @@ fun HomeScreen(onOpenDetailsClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreenPreview() {
+private fun HomeScreenPreview() {
     HomeScreen(onOpenDetailsClick = {})
 }

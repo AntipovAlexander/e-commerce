@@ -12,10 +12,10 @@ import com.ecommerce.core.ui.theme.Theme
 
 @Composable
 fun PrimaryButton(
-    modifier: Modifier = Modifier,
     text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    onClick: () -> Unit
 ) {
     Button(
         modifier = Modifier

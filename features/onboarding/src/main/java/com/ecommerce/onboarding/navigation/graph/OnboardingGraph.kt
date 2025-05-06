@@ -19,13 +19,13 @@ import com.ecommerce.signup.SignUpScreen
 fun NavGraphBuilder.onboardingGraph(navController: NavController, onUserLoggedIn: () -> Unit) {
     navigation<OnboardingGraphRoute>(startDestination = OnboardingScreenRoute) {
         composable<OnboardingScreenRoute> {
-            OnboardingScreen {
-                navController.navigate(SignInRoute) {
-                    popUpTo(navController.graph.findStartDestination().id) {
-                        inclusive = true
+            OnboardingScreen(
+                onProceedToAuthClick = {
+                    navController.navigate(SignInRoute) {
+                        popUpTo(navController.graph.findStartDestination().id) { inclusive = true }
                     }
                 }
-            }
+            )
         }
         slidingComposable<SignInRoute>(
             enterTransition = {
@@ -37,20 +37,19 @@ fun NavGraphBuilder.onboardingGraph(navController: NavController, onUserLoggedIn
             }
         ) {
             SignInScreen(
-                onSignUpClicked = { navController.navigate(SignUpRoute) },
-                onRestoreClicked = { navController.navigate(ForgotPasswordRoute) },
+                onSignUpClick = { navController.navigate(SignUpRoute) },
+                onRestoreClick = { navController.navigate(ForgotPasswordRoute) },
                 onLoggedIn = { onUserLoggedIn() }
             )
         }
         slidingComposable<SignUpRoute> {
             SignUpScreen(
-                onSignInClicked = { navController.popBackStack() },
-                onRestoreClicked = { navController.navigate(ForgotPasswordRoute) }
+                onSignUpClick = { navController.popBackStack() }
             )
         }
         composable<ForgotPasswordRoute> {
             ForgotPasswordScreen(
-                onBackClicked = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() }
             )
         }
     }
