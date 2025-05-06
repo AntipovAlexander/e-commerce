@@ -1,0 +1,18 @@
+#!/bin/bash
+echo "Running pre-commit checks: lint and detekt"
+
+# Run lint
+./gradlew lint
+LINT_STATUS=$?
+
+# Run detekt
+./gradlew detekt
+DETEKT_STATUS=$?
+
+if [ $LINT_STATUS -ne 0 ] || [ $DETEKT_STATUS -ne 0 ]; then
+  echo "❌ Commit aborted due to failed checks."
+  exit 1
+fi
+
+echo "✅ All checks passed. Proceeding with commit."
+exit 0
