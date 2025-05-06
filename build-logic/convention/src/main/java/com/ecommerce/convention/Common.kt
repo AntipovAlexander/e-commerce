@@ -34,6 +34,21 @@ fun <
 }
 
 fun <
+        A : BuildFeatures,
+        B : BuildType,
+        C : DefaultConfig,
+        D : ProductFlavor,
+        E : AndroidResources,
+        F : Installation
+        > CommonExtension<A, B, C, D, E, F>.setupLint() {
+    lint {
+        warningsAsErrors = true
+        abortOnError = true
+        checkDependencies = true
+    }
+}
+
+fun <
     A : BuildFeatures,
     B : BuildType,
     C : DefaultConfig,

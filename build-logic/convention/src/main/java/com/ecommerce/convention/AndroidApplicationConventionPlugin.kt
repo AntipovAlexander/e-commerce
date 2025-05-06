@@ -2,11 +2,11 @@ package com.ecommerce.convention
 
 import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.api.dsl.ApplicationExtension
-import java.io.FileInputStream
-import java.util.Properties
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import java.io.FileInputStream
+import java.util.Properties
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
     override fun apply(project: Project) = project.run {
@@ -25,6 +25,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 versionCode = 1
                 versionName = "1.0"
             }
+            setupLint()
             setupSigningConfigs(project)
             setupBuildTypes()
             setupCompileOptions(tasks)

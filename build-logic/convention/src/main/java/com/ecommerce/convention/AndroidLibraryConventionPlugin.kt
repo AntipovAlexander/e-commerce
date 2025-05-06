@@ -18,7 +18,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                     intVersion("minSdk"),
                     intVersion("targetSdk")
                 )
-                consumerProguardFiles("consumer-rules.pro")
             }
             setupCompileOptions(tasks)
             enableCompose()
