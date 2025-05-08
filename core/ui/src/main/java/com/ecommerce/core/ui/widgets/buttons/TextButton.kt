@@ -10,7 +10,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.ecommerce.core.ui.theme.Theme
-import com.ecommerce.core.ui.theme.ripple
+import com.ecommerce.core.ui.theme.rippleConfiguration
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -21,7 +21,7 @@ fun TextButton(
     enabled: Boolean = true,
 ) {
     CompositionLocalProvider(
-        LocalRippleConfiguration provides ripple()
+        LocalRippleConfiguration provides rippleConfiguration()
     ) {
         TextButton(
             modifier = Modifier

@@ -16,10 +16,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.shape.GenericShape
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -31,10 +33,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ecommerce.core.ui.theme.Theme
 import com.ecommerce.core.ui.widgets.buttons.PrimaryButton
 import com.ecommerce.core.ui.widgets.buttons.TextButton
-import com.ecommerce.core.ui.widgets.inputs.PrimaryInput
+import com.ecommerce.core.ui.widgets.inputs.EmailInput
+import com.ecommerce.core.ui.widgets.inputs.PasswordInput
 
 private const val IMAGE_CONTAINER_RATIO = 0.5f
 private const val BUTTONS_CONTAINER_RATIO = 0.6f
@@ -44,9 +48,11 @@ fun SignInScreen(
     onSignUpClick: () -> Unit,
     onRestoreClick: () -> Unit,
     onLoggedIn: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: SignInViewModel = hiltViewModel()
 ) {
     val shapeSize = Theme.dimens.triplePad
+    viewModel.toString()
     Box(modifier = modifier.fillMaxSize()) {
         Image(
             modifier = Modifier
@@ -79,7 +85,7 @@ private fun BoxScope.ButtonsContainer(
         verticalArrangement = Arrangement.Top
     ) {
         var enteredEmail by rememberSaveable { mutableStateOf("") }
-        var enteredPassword by rememberSaveable { mutableStateOf("") }
+        val enterPasswordState = remember { TextFieldState() }
         Spacer(modifier = Modifier.height(shapeSize + Theme.dimens.doublePad))
         Text(
             text = stringResource(R.string.welcome_back),
@@ -87,15 +93,14 @@ private fun BoxScope.ButtonsContainer(
             color = Theme.colors.contentPrimary
         )
         Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
-        PrimaryInput(
+        EmailInput(
             text = enteredEmail,
             onChange = { enteredEmail = it },
             placeholder = stringResource(R.string.your_email)
         )
         Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
-        PrimaryInput(
-            text = enteredPassword,
-            onChange = { enteredPassword = it },
+        PasswordInput(
+            state = enterPasswordState,
             placeholder = stringResource(R.string.your_password)
         )
         Spacer(modifier = Modifier.height(Theme.dimens.singlePad))

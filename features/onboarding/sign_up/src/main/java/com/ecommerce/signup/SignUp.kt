@@ -12,10 +12,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.GenericShape
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -28,7 +30,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.ecommerce.core.ui.theme.Theme
 import com.ecommerce.core.ui.widgets.buttons.PrimaryButton
-import com.ecommerce.core.ui.widgets.inputs.PrimaryInput
+import com.ecommerce.core.ui.widgets.inputs.EmailInput
+import com.ecommerce.core.ui.widgets.inputs.PasswordInput
 
 private const val IMAGE_CONTAINER_RATIO = 0.5f
 private const val BUTTONS_CONTAINER_RATIO = 0.6f
@@ -60,7 +63,8 @@ fun SignUpScreen(
             verticalArrangement = Arrangement.Top
         ) {
             var enteredEmail by rememberSaveable { mutableStateOf("") }
-            var enteredPassword by rememberSaveable { mutableStateOf("") }
+            val enterPasswordState = remember { TextFieldState() }
+            val repeatPasswordState = remember { TextFieldState() }
             Spacer(modifier = Modifier.height(shapeSize + Theme.dimens.doublePad))
             Text(
                 text = stringResource(R.string.lets_get_started),
@@ -68,21 +72,19 @@ fun SignUpScreen(
                 color = Theme.colors.contentPrimary
             )
             Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
-            PrimaryInput(
+            EmailInput(
                 text = enteredEmail,
                 onChange = { enteredEmail = it },
                 placeholder = stringResource(R.string.your_email)
             )
             Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
-            PrimaryInput(
-                text = enteredPassword,
-                onChange = { enteredPassword = it },
+            PasswordInput(
+                state = enterPasswordState,
                 placeholder = stringResource(R.string.set_your_password)
             )
             Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
-            PrimaryInput(
-                text = enteredPassword,
-                onChange = { enteredPassword = it },
+            PasswordInput(
+                state = repeatPasswordState,
                 placeholder = stringResource(R.string.repeat_your_password)
             )
             PrimaryButton(text = stringResource(R.string.sign_up), onClick = onSignUpClick)

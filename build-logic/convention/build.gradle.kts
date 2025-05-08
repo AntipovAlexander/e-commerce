@@ -24,5 +24,9 @@ gradlePlugin {
             id = "convention.android.library"
             implementationClass = "com.ecommerce.convention.AndroidLibraryConventionPlugin"
         }
+        register("convention.dagger.hilt") {
+            id = "convention.dagger.hilt"
+            implementationClass = "com.ecommerce.convention.HiltConventionPlugin"
+        }
     }
 }

@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun ripple() = RippleConfiguration(
+fun rippleConfiguration() = RippleConfiguration(
     color = Theme.colors.backgroundAccent,
     rippleAlpha = RippleAlpha(
         pressedAlpha = 0.1f,
