@@ -265,5 +265,7 @@ private fun topCircledShape(curveHeightPx: Float) = GenericShape { size, _ ->
 @Composable
 @Preview
 private fun OnboardingScreenPreview() {
-    OnboardingScreen(onProceedToAuthClick = {})
+    Theme {
+        OnboardingScreen(onProceedToAuthClick = {})
+    }
 }

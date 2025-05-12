@@ -35,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ecommerce.core.ui.theme.Theme
 import com.ecommerce.core.ui.theme.rippleConfiguration
@@ -165,4 +166,60 @@ fun PasswordInput(
             }
         }
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EmailInput_Preview_Normal() {
+    Theme {
+        val state = remember { TextFieldState() }
+        EmailInput(
+            state = state,
+            placeholder = "email@example.com",
+            modifier = Modifier.padding(16.dp),
+            errorText = null
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EmailInput_Preview_Error() {
+    Theme {
+        val state = remember { TextFieldState("bad-email") }
+        EmailInput(
+            state = state,
+            placeholder = "email@example.com",
+            modifier = Modifier.padding(16.dp),
+            errorText = "Invalid email"
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PasswordInput_Preview_Normal() {
+    Theme {
+        val state = remember { TextFieldState() }
+        PasswordInput(
+            state = state,
+            placeholder = "Password",
+            modifier = Modifier.padding(16.dp),
+            errorText = null
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PasswordInput_Preview_Error() {
+    Theme {
+        val state = remember { TextFieldState("123") }
+        PasswordInput(
+            state = state,
+            placeholder = "Password",
+            modifier = Modifier.padding(16.dp),
+            errorText = "Too short"
+        )
+    }
 }

@@ -101,5 +101,7 @@ private fun containerShape(curveHeightPx: Float) = GenericShape { size, _ ->
 @Preview(showBackground = true)
 @Composable
 private fun SignUpScreenPreview() {
-    SignUpScreen(onSignUpClick = {})
+    Theme {
+        SignUpScreen(onSignUpClick = {})
+    }
 }

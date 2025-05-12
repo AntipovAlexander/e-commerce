@@ -3,7 +3,12 @@
 
 package com.ecommerce.core.ui.theme
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -11,7 +16,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ecommerce.core.ui.R
 
@@ -217,3 +224,48 @@ val defaultTypography = AppTypography(
 )
 
 val LocalAppTypography = staticCompositionLocalOf { defaultTypography }
+
+@Preview(showBackground = true)
+@Composable
+private fun Typography_Preview_Headings() {
+    Theme {
+        val heading = LocalAppTypography.current.heading
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("Heading One SemiBold", style = heading.one.semiBold)
+            Text("Heading Two ExtraBold", style = heading.two.extraBold)
+            Text("Heading Two SemiBold", style = heading.two.semiBold)
+            Text("Heading Two Strikethrough", style = heading.two.strikethrough)
+            Text("Heading Three ExtraBold", style = heading.three.extraBold)
+            Text("Heading Three Bold", style = heading.three.bold)
+            Text("Heading Three Medium", style = heading.three.medium)
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Typography_Preview_Bodies() {
+    Theme {
+        val body = LocalAppTypography.current.body
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("Body One Regular", style = body.one.regular)
+            Text("Body One Underline", style = body.one.underline)
+            Text("Body Two Medium", style = body.two.medium)
+            Text("Body Two Bold", style = body.two.bold)
+            Text("Body Two Strikethrough", style = body.two.strikethrough)
+            Text("Body Three Regular", style = body.three.regular)
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Typography_Preview_Captions() {
+    Theme {
+        val caption = LocalAppTypography.current.caption
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("Caption One Regular", style = caption.one.regular)
+            Text("Caption Two SemiBold", style = caption.two.semiBold)
+        }
+    }
+}

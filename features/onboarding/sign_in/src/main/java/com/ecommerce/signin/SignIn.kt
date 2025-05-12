@@ -66,6 +66,29 @@ fun SignInScreen(
             .observeAsText()
             .collect(viewModel::onPasswordUpdate)
     }
+    SignIn(
+        modifier = modifier,
+        emailTextState = emailTextState,
+        state = state,
+        passwordTextState = passwordTextState,
+        onLoggedIn = onLoggedIn,
+        onSignUpClick = onSignUpClick,
+        onRestoreClick = onRestoreClick,
+        shapeSize = shapeSize
+    )
+}
+
+@Composable
+private fun SignIn(
+    emailTextState: TextFieldState,
+    state: SignInState,
+    passwordTextState: TextFieldState,
+    onLoggedIn: () -> Unit,
+    onSignUpClick: () -> Unit,
+    onRestoreClick: () -> Unit,
+    shapeSize: Dp,
+    modifier: Modifier = Modifier,
+) {
     Box(modifier = modifier.fillMaxSize()) {
         Image(
             modifier = Modifier
@@ -171,5 +194,19 @@ private fun containerShape(curveHeightPx: Float) = GenericShape { size, _ ->
 @Preview(showBackground = true)
 @Composable
 private fun SignInScreenPreview() {
-    SignInScreen(onSignUpClick = {}, onRestoreClick = {}, onLoggedIn = {})
+    Theme {
+        SignIn(
+            modifier = Modifier,
+            emailTextState = TextFieldState("alexander@gmail.com"),
+            state = SignInState.default().copy(
+                emailError = "Email error",
+                passwordError = "Password error",
+            ),
+            passwordTextState = TextFieldState("123456"),
+            onLoggedIn = {},
+            onSignUpClick = {},
+            onRestoreClick = {},
+            shapeSize = Theme.dimens.triplePad
+        )
+    }
 }
