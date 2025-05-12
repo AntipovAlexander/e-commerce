@@ -25,13 +25,13 @@ abstract class BaseViewModel<State : Reducer.ViewState, Intent : Reducer.ViewInt
     private val _effects = Channel<Effect>(capacity = Channel.CONFLATED)
     val effect = _effects.receiveAsFlow()
 
-    fun sendEffect(effect: Effect) {
+    fun applyEffect(effect: Effect) {
         _effects.trySend(effect)
     }
 
     fun applyIntent(intent: Intent) {
         val (newState, effect) = reducer.reduce(_state.value, intent)
         _state.tryEmit(newState)
-        effect?.let(::sendEffect)
+        effect?.let(::applyEffect)
     }
 }

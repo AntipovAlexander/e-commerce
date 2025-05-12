@@ -1,4 +1,4 @@
-package com.ecommerce.app
+package com.ecommerce.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

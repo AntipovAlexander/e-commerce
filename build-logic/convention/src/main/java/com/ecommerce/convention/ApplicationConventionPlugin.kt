@@ -2,17 +2,21 @@ package com.ecommerce.convention
 
 import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.api.dsl.ApplicationExtension
+import com.ecommerce.convention.utils.applyDefaultConfig
+import com.ecommerce.convention.utils.enableCompose
+import com.ecommerce.convention.utils.intVersion
+import com.ecommerce.convention.utils.setupCompileOptions
+import com.ecommerce.convention.utils.setupLint
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import java.io.FileInputStream
 import java.util.Properties
 
-class AndroidApplicationConventionPlugin : Plugin<Project> {
+class ApplicationConventionPlugin : Plugin<Project> {
     override fun apply(project: Project) = project.run {
         pluginManager.apply("com.android.application")
         pluginManager.apply("org.jetbrains.kotlin.android")
-        pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
 
         extensions.configure<ApplicationExtension> {
             compileSdk = intVersion("compileSdk")
@@ -29,7 +33,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             setupSigningConfigs(project)
             setupBuildTypes()
             setupCompileOptions(tasks)
-            enableCompose()
+            enableCompose(pluginManager)
         }
     }
 }

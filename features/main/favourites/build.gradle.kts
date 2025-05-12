@@ -1,5 +1,5 @@
 plugins {
-    id("convention.android.library")
+    id("convention.android.feature")
     alias(libs.plugins.kotlin.serialization)
 }
 

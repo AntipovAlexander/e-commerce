@@ -4,4 +4,22 @@ import androidx.compose.runtime.Immutable
 import com.ecommerce.core.ui.base.Reducer
 
 @Immutable
-data class SignInState(val isLoading: Boolean) : Reducer.ViewState
+data class SignInState(
+    val isLoading: Boolean,
+    val isButtonEnabled: Boolean,
+    val email: String,
+    val emailError: String?,
+    val password: String,
+    val passwordError: String?
+) : Reducer.ViewState {
+    companion object {
+        fun default() = SignInState(
+            isLoading = false,
+            isButtonEnabled = false,
+            email = "",
+            emailError = null,
+            password = "",
+            passwordError = null,
+        )
+    }
+}

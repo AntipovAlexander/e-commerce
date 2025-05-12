@@ -2,11 +2,23 @@ package com.ecommerce.signin
 
 import com.ecommerce.core.ui.base.Reducer
 
-class SignInStateReducer : Reducer<SignInState, SignInIntents, SignInEffects> {
+internal class SignInStateReducer : Reducer<SignInState, SignInIntent, SignInEffect> {
     override fun reduce(
         previousState: SignInState,
-        intent: SignInIntents
-    ): Pair<SignInState, SignInEffects?> {
-        TODO("Not yet implemented")
+        intent: SignInIntent
+    ): Pair<SignInState, SignInEffect?> = when (intent) {
+        is SignInIntent.UpdateEmail -> previousState.copy(
+            email = intent.email,
+            emailError = intent.error,
+            isButtonEnabled = previousState.passwordError == null && intent.error == null
+        ) to null
+
+        is SignInIntent.UpdatePassword -> previousState.copy(
+            password = intent.password,
+            passwordError = intent.error,
+            isButtonEnabled = previousState.emailError == null && intent.error == null
+        ) to null
+
+        else -> previousState to null
     }
 }

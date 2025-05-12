@@ -13,13 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,9 +36,10 @@ private const val BUTTONS_CONTAINER_RATIO = 0.6f
 @Composable
 fun SignUpScreen(
     onSignUpClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val shapeSize = Theme.dimens.triplePad
+    val emailTextState = rememberTextFieldState()
     Box(modifier = modifier.fillMaxSize()) {
         Image(
             modifier = Modifier
@@ -62,7 +60,6 @@ fun SignUpScreen(
                 .padding(horizontal = Theme.dimens.doublePad),
             verticalArrangement = Arrangement.Top
         ) {
-            var enteredEmail by rememberSaveable { mutableStateOf("") }
             val enterPasswordState = remember { TextFieldState() }
             val repeatPasswordState = remember { TextFieldState() }
             Spacer(modifier = Modifier.height(shapeSize + Theme.dimens.doublePad))
@@ -73,8 +70,7 @@ fun SignUpScreen(
             )
             Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
             EmailInput(
-                text = enteredEmail,
-                onChange = { enteredEmail = it },
+                state = emailTextState,
                 placeholder = stringResource(R.string.your_email)
             )
             Spacer(modifier = Modifier.height(Theme.dimens.singlePad))

@@ -14,7 +14,8 @@ data class AppDimens(
     val singleHalfPad: Dp,
     val singleThreeQuarterPad: Dp,
     val doublePad: Dp,
-    val triplePad: Dp
+    val triplePad: Dp,
+    val sixPad: Dp
 )
 
 val defaultDimens = AppDimens(
@@ -27,7 +28,8 @@ val defaultDimens = AppDimens(
     singleHalfPad = 12.dp,
     singleThreeQuarterPad = 14.dp,
     doublePad = 16.dp,
-    triplePad = 24.dp
+    triplePad = 24.dp,
+    sixPad = 48.dp
 )
 
 val LocalAppDimens = staticCompositionLocalOf { defaultDimens }

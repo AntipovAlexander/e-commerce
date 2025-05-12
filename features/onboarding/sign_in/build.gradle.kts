@@ -1,8 +1,7 @@
 plugins {
-    id("convention.android.library")
+    id("convention.android.feature")
     id("convention.dagger.hilt")
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.detekt)
 }
 
 android {
@@ -11,8 +10,7 @@ android {
 
 dependencies {
     implementation(project(":core:ui"))
-    detektPlugins(libs.detekt.compose)
-    detektPlugins(libs.detekt.formatting)
+    implementation(project(":core:domain"))
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.kotlin.serialization.json)

@@ -10,6 +10,8 @@ android {
 dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
     implementation(project(":features:onboarding"))
     implementation(project(":features:onboarding:sign_up"))
     implementation(project(":features:onboarding:sign_in"))

@@ -1,4 +1,4 @@
-package com.ecommerce.convention
+package com.ecommerce.convention.utils
 
 import com.android.build.api.dsl.AndroidResources
 import com.android.build.api.dsl.ApplicationDefaultConfig
@@ -9,6 +9,7 @@ import com.android.build.api.dsl.DefaultConfig
 import com.android.build.api.dsl.Installation
 import com.android.build.api.dsl.ProductFlavor
 import org.gradle.api.JavaVersion
+import org.gradle.api.plugins.PluginManager
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -55,7 +56,8 @@ fun <
     D : ProductFlavor,
     E : AndroidResources,
     F : Installation
-    > CommonExtension<A, B, C, D, E, F>.enableCompose() {
+    > CommonExtension<A, B, C, D, E, F>.enableCompose(pluginManager: PluginManager) {
+    pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
     buildFeatures {
         compose = true
     }

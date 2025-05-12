@@ -19,11 +19,10 @@ import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +33,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ecommerce.core.ui.extensions.observeAsText
 import com.ecommerce.core.ui.theme.Theme
 import com.ecommerce.core.ui.widgets.buttons.PrimaryButton
 import com.ecommerce.core.ui.widgets.buttons.TextButton
@@ -52,7 +53,19 @@ fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel()
 ) {
     val shapeSize = Theme.dimens.triplePad
-    viewModel.toString()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val emailTextState = remember { TextFieldState(viewModel.state.value.email) }
+    val passwordTextState = remember { TextFieldState(viewModel.state.value.password) }
+    LaunchedEffect(emailTextState) {
+        snapshotFlow { emailTextState.text }
+            .observeAsText()
+            .collect(viewModel::onEmailUpdate)
+    }
+    LaunchedEffect(passwordTextState) {
+        snapshotFlow { passwordTextState.text }
+            .observeAsText()
+            .collect(viewModel::onPasswordUpdate)
+    }
     Box(modifier = modifier.fillMaxSize()) {
         Image(
             modifier = Modifier
@@ -63,19 +76,35 @@ fun SignInScreen(
             contentScale = ContentScale.Crop,
             contentDescription = ""
         )
-        ButtonsContainer(shapeSize, onLoggedIn, onSignUpClick, onRestoreClick)
+        ButtonsContainer(
+            emailTextState = emailTextState,
+            emailError = state.emailError,
+            passwordTextState = passwordTextState,
+            passwordError = state.passwordError,
+            isButtonEnabled = state.isButtonEnabled,
+            onLoggedIn = onLoggedIn,
+            onSignUpClick = onSignUpClick,
+            onRestoreClick = onRestoreClick,
+            shapeSize = shapeSize,
+        )
     }
 }
 
 @Composable
 private fun BoxScope.ButtonsContainer(
+    emailTextState: TextFieldState,
+    emailError: String?,
+    passwordTextState: TextFieldState,
+    passwordError: String?,
+    isButtonEnabled: Boolean,
     shapeSize: Dp,
-    onLoggedIn: () -> Unit,
-    onSignUpClick: () -> Unit,
-    onRestoreClick: () -> Unit
+    modifier: Modifier = Modifier,
+    onLoggedIn: () -> Unit = {},
+    onSignUpClick: () -> Unit = {},
+    onRestoreClick: () -> Unit = {},
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight(BUTTONS_CONTAINER_RATIO)
             .align(Alignment.BottomCenter)
@@ -84,8 +113,6 @@ private fun BoxScope.ButtonsContainer(
             .padding(horizontal = Theme.dimens.doublePad),
         verticalArrangement = Arrangement.Top
     ) {
-        var enteredEmail by rememberSaveable { mutableStateOf("") }
-        val enterPasswordState = remember { TextFieldState() }
         Spacer(modifier = Modifier.height(shapeSize + Theme.dimens.doublePad))
         Text(
             text = stringResource(R.string.welcome_back),
@@ -94,17 +121,18 @@ private fun BoxScope.ButtonsContainer(
         )
         Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
         EmailInput(
-            text = enteredEmail,
-            onChange = { enteredEmail = it },
+            state = emailTextState,
+            errorText = emailError,
             placeholder = stringResource(R.string.your_email)
         )
-        Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
         PasswordInput(
-            state = enterPasswordState,
+            state = passwordTextState,
+            errorText = passwordError,
             placeholder = stringResource(R.string.your_password)
         )
         Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
         PrimaryButton(
+            enabled = isButtonEnabled,
             modifier = Modifier.fillMaxWidth(),
             onClick = onLoggedIn,
             text = stringResource(R.string.log_in)

@@ -1,4 +1,4 @@
-package com.ecommerce.app
+package com.ecommerce.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

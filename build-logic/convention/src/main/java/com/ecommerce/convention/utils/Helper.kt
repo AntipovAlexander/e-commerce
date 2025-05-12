@@ -1,4 +1,4 @@
-package com.ecommerce.convention
+package com.ecommerce.convention.utils
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
