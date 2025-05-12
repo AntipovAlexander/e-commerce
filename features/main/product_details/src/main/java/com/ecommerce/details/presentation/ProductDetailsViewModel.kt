@@ -1,19 +1,19 @@
 package com.ecommerce.details.presentation
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.lifecycle.ViewModel
+import timber.log.Timber
 
 class ProductDetailsViewModel : ViewModel() {
 
     init {
-        Log.d("viewmodel-debug", "Created Vm: $this")
+        Timber.d("Created Vm: $this")
     }
 
     override fun onCleared() {
         super.onCleared()
-        Log.d("viewmodel-debug", "Destroyed: $this")
+        Timber.d("Destroyed: $this")
     }
 
     private val _count = mutableIntStateOf(0)

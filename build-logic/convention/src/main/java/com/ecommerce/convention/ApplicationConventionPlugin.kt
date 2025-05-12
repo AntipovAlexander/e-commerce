@@ -5,11 +5,13 @@ import com.android.build.api.dsl.ApplicationExtension
 import com.ecommerce.convention.utils.applyDefaultConfig
 import com.ecommerce.convention.utils.enableCompose
 import com.ecommerce.convention.utils.intVersion
+import com.ecommerce.convention.utils.libs
 import com.ecommerce.convention.utils.setupCompileOptions
 import com.ecommerce.convention.utils.setupLint
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -17,7 +19,7 @@ class ApplicationConventionPlugin : Plugin<Project> {
     override fun apply(project: Project) = project.run {
         pluginManager.apply("com.android.application")
         pluginManager.apply("org.jetbrains.kotlin.android")
-
+        dependencies { "implementation"(libs.findLibrary("timber").get()) }
         extensions.configure<ApplicationExtension> {
             compileSdk = intVersion("compileSdk")
             defaultConfig {

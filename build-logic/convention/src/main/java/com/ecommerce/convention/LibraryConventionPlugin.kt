@@ -18,6 +18,7 @@ open class LibraryConventionPlugin : Plugin<Project> {
         dependencies {
             "detektPlugins"(libs.findLibrary("detekt.compose").get())
             "detektPlugins"(libs.findLibrary("detekt.formatting").get())
+            "implementation"(libs.findLibrary("timber").get())
         }
         extensions.configure<LibraryExtension> {
             compileSdk = intVersion("compileSdk")
