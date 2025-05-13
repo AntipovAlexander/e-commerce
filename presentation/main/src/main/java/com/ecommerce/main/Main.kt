@@ -20,9 +20,9 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.ecommerce.core.ui.theme.Theme
 import com.ecommerce.main.navigation.bottom.BottomNavigationItem
 import com.ecommerce.main.navigation.bottom.bottomNavigationGraph
+import com.ecommerce.presentation.core.theme.Theme
 
 @Composable
 internal fun MainScreen() {

@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
+    implementation(project(":presentation:core"))
     implementation(project(":presentation:main:home"))
     implementation(project(":presentation:main:browse"))
     implementation(project(":presentation:main:favourites"))

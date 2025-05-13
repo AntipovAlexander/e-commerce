@@ -1,8 +1,8 @@
 package com.ecommerce.signin
 
 import android.util.Patterns
-import com.ecommerce.core.ui.base.BaseViewModel
 import com.ecommerce.domain.core.resources.ResourceProvider
+import com.ecommerce.presentation.core.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

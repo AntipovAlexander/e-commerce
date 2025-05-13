@@ -22,6 +22,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "e-commerce"
 include(":app")
+include(":presentation:core")
 include(":presentation:onboarding:sign_up")
 include(":presentation:onboarding:forgot_password")
 include(":presentation:onboarding:sign_in")
@@ -32,8 +33,6 @@ include(":presentation:main:cart")
 include(":presentation:main:profile")
 include(":presentation:main:product_details")
 include(":presentation:onboarding")
-include(":core:ui")
-include(":core:navigation")
 include(":domain")
 include(":data")
 include(":data:core")

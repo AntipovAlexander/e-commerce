@@ -1,6 +1,6 @@
 package com.ecommerce.signin
 
-import com.ecommerce.core.ui.base.Reducer
+import com.ecommerce.presentation.core.base.Reducer
 
 internal class SignInStateReducer : Reducer<SignInState, SignInIntent, SignInEffect> {
     override fun reduce(

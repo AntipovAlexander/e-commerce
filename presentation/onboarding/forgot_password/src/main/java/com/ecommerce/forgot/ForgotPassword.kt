@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.ecommerce.core.ui.theme.LocalAppDimens
+import com.ecommerce.presentation.core.theme.LocalAppDimens
 
 @Composable
 fun ForgotPasswordScreen(

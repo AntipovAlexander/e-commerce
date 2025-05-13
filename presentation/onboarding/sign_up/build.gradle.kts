@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
+    implementation(project(":presentation:core"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.kotlin.serialization.json)
     implementation(libs.bundles.ktx)

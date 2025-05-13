@@ -25,10 +25,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.ecommerce.core.ui.theme.Theme
-import com.ecommerce.core.ui.widgets.buttons.PrimaryButton
-import com.ecommerce.core.ui.widgets.inputs.EmailInput
-import com.ecommerce.core.ui.widgets.inputs.PasswordInput
+import com.ecommerce.presentation.core.theme.Theme
+import com.ecommerce.presentation.core.widgets.buttons.PrimaryButton
+import com.ecommerce.presentation.core.widgets.inputs.EmailInput
+import com.ecommerce.presentation.core.widgets.inputs.PasswordInput
 
 private const val IMAGE_CONTAINER_RATIO = 0.5f
 private const val BUTTONS_CONTAINER_RATIO = 0.6f

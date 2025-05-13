@@ -5,12 +5,12 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.ecommerce.core.navigation.slideIn
-import com.ecommerce.core.navigation.slidingComposable
 import com.ecommerce.forgot.ForgotPasswordRoute
 import com.ecommerce.forgot.ForgotPasswordScreen
 import com.ecommerce.onboarding.OnboardingScreen
 import com.ecommerce.onboarding.navigation.OnboardingScreenRoute
+import com.ecommerce.presentation.core.navigation.slideIn
+import com.ecommerce.presentation.core.navigation.slidingComposable
 import com.ecommerce.signin.SignInRoute
 import com.ecommerce.signin.SignInScreen
 import com.ecommerce.signup.SignUpRoute

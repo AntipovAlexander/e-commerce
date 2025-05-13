@@ -43,9 +43,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import com.ecommerce.core.ui.theme.Theme
-import com.ecommerce.core.ui.widgets.buttons.PrimaryButton
-import com.ecommerce.core.ui.widgets.misc.HorizontalDivider
+import com.ecommerce.presentation.core.theme.Theme
+import com.ecommerce.presentation.core.widgets.buttons.PrimaryButton
+import com.ecommerce.presentation.core.widgets.misc.HorizontalDivider
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 

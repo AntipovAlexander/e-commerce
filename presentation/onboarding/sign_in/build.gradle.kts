@@ -9,9 +9,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":presentation:core"))
     implementation(project(":data:core"))
     implementation(project(":domain:core"))
-    implementation(project(":core:ui"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.kotlin.serialization.json)
     implementation(libs.androidx.lifecycle.viewmodel)
