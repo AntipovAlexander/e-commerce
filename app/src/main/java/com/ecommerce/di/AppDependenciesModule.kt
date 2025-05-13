@@ -1,8 +1,8 @@
 package com.ecommerce.di
 
 import android.content.Context
-import com.ecommerce.core.data.resources.AndroidResourceProvider
-import com.ecommerce.core.domain.resources.ResourceProvider
+import com.ecommerce.data.core.resources.AndroidResourceProvider
+import com.ecommerce.domain.core.resources.ResourceProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

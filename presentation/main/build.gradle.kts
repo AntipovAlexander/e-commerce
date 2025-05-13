@@ -1,22 +1,14 @@
 plugins {
-    id("convention.android.application")
-    id("convention.dagger.hilt")
+    id("convention.android.feature")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.ecommerce.app"
+    namespace = "com.ecommerce.main"
 }
 
 dependencies {
     implementation(project(":core:ui"))
-    implementation(project(":core:navigation"))
-    implementation(project(":data:core"))
-    implementation(project(":domain:core"))
-    implementation(project(":presentation:onboarding"))
-    implementation(project(":presentation:onboarding:sign_up"))
-    implementation(project(":presentation:onboarding:sign_in"))
-    implementation(project(":presentation:onboarding:forgot_password"))
-    implementation(project(":presentation:main"))
     implementation(project(":presentation:main:home"))
     implementation(project(":presentation:main:browse"))
     implementation(project(":presentation:main:favourites"))
@@ -25,8 +17,11 @@ dependencies {
     implementation(project(":presentation:main:product_details"))
 
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.kotlin.serialization.json)
     implementation(libs.androidx.navigation)
-    implementation(libs.androidx.activity.compose)
     implementation(libs.bundles.ktx)
     implementation(libs.bundles.ui)
+
+    implementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.tooling.preview)
 }
