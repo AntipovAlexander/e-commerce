@@ -17,9 +17,9 @@ data class SignInState(
             isLoading = false,
             isButtonEnabled = false,
             email = "",
-            emailError = null,
+            emailError = "",
             password = "",
-            passwordError = null,
+            passwordError = "",
         )
     }
 }

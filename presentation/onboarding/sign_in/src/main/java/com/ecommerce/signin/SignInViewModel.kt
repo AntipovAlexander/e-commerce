@@ -1,38 +1,36 @@
 package com.ecommerce.signin
 
-import android.util.Patterns
-import com.ecommerce.domain.core.resources.ResourceProvider
+import androidx.lifecycle.viewModelScope
+import com.ecommerce.domain.core.base.getOrNull
+import com.ecommerce.domain.core.validate.ValidateEmailUseCase
+import com.ecommerce.domain.core.validate.ValidatePasswordUseCase
 import com.ecommerce.presentation.core.base.BaseViewModel
+import com.ecommerce.presentation.core.extensions.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val resourceProvider: ResourceProvider
+    private val validateEmailUseCase: ValidateEmailUseCase,
+    private val validatePasswordUseCase: ValidatePasswordUseCase
 ) : BaseViewModel<SignInState, SignInIntent, SignInEffect>(
     initialState = SignInState.default(),
     reducer = SignInStateReducer()
 ) {
 
-    companion object {
-        private val PASSWORD_REGEX = Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,12}$")
-    }
-
     fun onEmailUpdate(email: String) {
-        val isValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        val errorMessage = when (isValid) {
-            false -> resourceProvider.getString(R.string.email_error_text)
-            true -> null
+        applyIntent(SignInIntent.UpdateEmail(email))
+        viewModelScope.launch {
+            val errorMessage = validateEmailUseCase(ValidateEmailUseCase.Params(email)).getOrNull()
+            applyIntent(SignInIntent.UpdateEmailError(errorMessage))
         }
-        applyIntent(SignInIntent.UpdateEmail(email, errorMessage))
     }
 
     fun onPasswordUpdate(password: String) {
-        val isValid = PASSWORD_REGEX.matches(password)
-        val errorMessage = when (isValid) {
-            false -> resourceProvider.getString(R.string.password_error_text)
-            true -> null
+        applyIntent(SignInIntent.UpdatePassword(password))
+        viewModelScope.launch {
+            val errorMessage = validatePasswordUseCase(ValidatePasswordUseCase.Params(password)).getOrNull()
+            applyIntent(SignInIntent.UpdatePasswordError(errorMessage))
         }
-        applyIntent(SignInIntent.UpdatePassword(password, errorMessage))
     }
 }

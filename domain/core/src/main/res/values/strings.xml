@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_error_text">Provide a valid email</string>
+    <plurals name="password_error_text">
+        <item quantity="one">At least, %d char</item>
+        <item quantity="other">At least, %d chars</item>
+    </plurals>
+</resources>
