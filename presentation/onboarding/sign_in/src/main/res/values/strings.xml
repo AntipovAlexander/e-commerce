@@ -6,6 +6,6 @@
     <string name="dont_have_an_account">Don\'t have an account</string>
     <string name="forgot_password">Forgot password</string>
     <string name="email_error_text">Provide a valid email</string>
-    <string name="password_error_text">6–12 chars, one Uppercase</string>
+    <string name="password_error_text">Lowercase and uppercase, special, 6–12 chars.</string>
     <string name="or">or</string>
 </resources>

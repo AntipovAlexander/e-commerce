@@ -15,7 +15,7 @@ class SignInViewModel @Inject constructor(
 ) {
 
     companion object {
-        private val PASSWORD_REGEX = Regex("""^(?=.*[A-Z])[A-Za-z]{6,12}$""")
+        private val PASSWORD_REGEX = Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,12}$")
     }
 
     fun onEmailUpdate(email: String) {
