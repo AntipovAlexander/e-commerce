@@ -47,7 +47,7 @@ fun NavGraphBuilder.onboardingGraph(navController: NavController, onUserLoggedIn
                 onSignUpClick = { navController.popBackStack() }
             )
         }
-        composable<ForgotPasswordRoute> {
+        slidingComposable<ForgotPasswordRoute> {
             ForgotPasswordScreen(
                 onBackClick = { navController.popBackStack() }
             )
