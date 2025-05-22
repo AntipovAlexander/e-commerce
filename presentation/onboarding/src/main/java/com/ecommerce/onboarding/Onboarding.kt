@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -49,7 +50,7 @@ import com.ecommerce.presentation.core.widgets.misc.HorizontalDivider
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-private const val BUTTONS_CONTAINER_RATIO = 0.35f
+private const val BUTTONS_CONTAINER_RATIO = 0.45f
 
 @Composable
 fun OnboardingScreen(
@@ -115,14 +116,16 @@ private fun ColumnScope.TopContent(pagerState: PagerState) {
     ) {
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.Bottom,
+            modifier = Modifier
+                .fillMaxSize()
+                .background(colorResource(R.color.background_container)),
             beyondViewportPageCount = 2
         ) { page ->
             Image(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxWidth(),
                 painter = painterResource(id = requireNotNull(OnboardingConst.slideImages[page])),
-                alignment = Alignment.Center,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillWidth,
                 contentDescription = ""
             )
         }
@@ -151,10 +154,7 @@ private fun BottomContent(
             verticalArrangement = Arrangement.Bottom
         ) {
             Spacer(modifier = Modifier.height(curveCutHeight))
-            TextPager(
-                pagerState = pagerState,
-                modifier = Modifier.padding(Theme.dimens.doublePad)
-            )
+            TextPager(pagerState = pagerState)
             HorizontalDivider()
             ButtonsContainer(pagerState, onSkipClick, onContinueClick)
             Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.systemBars))

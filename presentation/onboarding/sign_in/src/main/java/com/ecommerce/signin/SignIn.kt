@@ -1,22 +1,30 @@
 package com.ecommerce.signin
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,7 +42,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ecommerce.presentation.core.extensions.conditional
 import com.ecommerce.presentation.core.extensions.observeAsText
+import com.ecommerce.presentation.core.extensions.rememberKeyboardVisibility
 import com.ecommerce.presentation.core.theme.Theme
 import com.ecommerce.presentation.core.widgets.buttons.PrimaryButton
 import com.ecommerce.presentation.core.widgets.buttons.TextButton
@@ -90,6 +100,8 @@ private fun SignIn(
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
+        val isKeyboardVisible by rememberKeyboardVisibility()
+        val buttonsHeightRatio = if (isKeyboardVisible) 1f else BUTTONS_CONTAINER_RATIO
         Image(
             modifier = Modifier
                 .fillMaxWidth()
@@ -100,11 +112,15 @@ private fun SignIn(
             contentDescription = ""
         )
         ButtonsContainer(
+            isKeyboardVisible = isKeyboardVisible,
             emailTextState = emailTextState,
             emailError = state.emailError,
             passwordTextState = passwordTextState,
             passwordError = state.passwordError,
             isButtonEnabled = state.isButtonEnabled,
+            modifier = Modifier
+                .animateContentSize()
+                .fillMaxHeight(buttonsHeightRatio),
             onLoggedIn = onLoggedIn,
             onSignUpClick = onSignUpClick,
             onRestoreClick = onRestoreClick,
@@ -115,6 +131,7 @@ private fun SignIn(
 
 @Composable
 private fun BoxScope.ButtonsContainer(
+    isKeyboardVisible: Boolean,
     emailTextState: TextFieldState,
     emailError: String?,
     passwordTextState: TextFieldState,
@@ -129,30 +146,109 @@ private fun BoxScope.ButtonsContainer(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .fillMaxHeight(BUTTONS_CONTAINER_RATIO)
             .align(Alignment.BottomCenter)
-            .clip(containerShape(with(LocalDensity.current) { shapeSize.toPx() }))
+            .conditional(
+                condition = !isKeyboardVisible,
+                ifTrue = { Modifier.clip(containerShape(with(LocalDensity.current) { shapeSize.toPx() })) }
+            )
+            .verticalScroll(rememberScrollState())
             .background(color = Theme.colors.backgroundPrimary)
             .padding(horizontal = Theme.dimens.doublePad),
         verticalArrangement = Arrangement.Top
     ) {
-        Spacer(modifier = Modifier.height(shapeSize + Theme.dimens.doublePad))
-        Text(
-            text = stringResource(R.string.welcome_back),
-            style = Theme.typography.heading.one.semiBold,
-            color = Theme.colors.contentPrimary
+        SignInInputs(
+            isKeyboardVisible,
+            shapeSize,
+            emailTextState,
+            emailError,
+            passwordTextState,
+            passwordError,
+            onSignUpClick,
+            onRestoreClick,
+            onLoggedIn,
+            isButtonEnabled
         )
-        Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
-        EmailInput(
-            state = emailTextState,
-            errorText = emailError,
-            placeholder = stringResource(R.string.your_email)
+    }
+    AnimatedVisibility(
+        modifier = Modifier
+            .align(Alignment.BottomCenter)
+            .imePadding()
+            .padding(horizontal = Theme.dimens.doublePad)
+            .padding(bottom = Theme.dimens.doublePad),
+        visible = isKeyboardVisible,
+        enter = fadeIn(),
+        exit = fadeOut()
+    ) {
+        PrimaryButton(
+            enabled = isButtonEnabled,
+            modifier = Modifier.fillMaxWidth(),
+            onClick = onLoggedIn,
+            text = stringResource(R.string.log_in)
         )
-        PasswordInput(
-            state = passwordTextState,
-            errorText = passwordError,
-            placeholder = stringResource(R.string.your_password)
+    }
+}
+
+@Composable
+private fun ColumnScope.SignInInputs(
+    isKeyboardVisible: Boolean,
+    shapeSize: Dp,
+    emailTextState: TextFieldState,
+    emailError: String?,
+    passwordTextState: TextFieldState,
+    passwordError: String?,
+    onSignUpClick: () -> Unit,
+    onRestoreClick: () -> Unit,
+    onLoggedIn: () -> Unit,
+    isButtonEnabled: Boolean
+) {
+    val spacerHeight = when (isKeyboardVisible) {
+        true -> with(LocalDensity.current) {
+            WindowInsets.systemBars.getTop(LocalDensity.current).toDp()
+        } + Theme.dimens.doublePad
+
+        false -> shapeSize + Theme.dimens.doublePad
+    }
+    Spacer(modifier = Modifier.height(spacerHeight))
+    Text(
+        text = stringResource(R.string.welcome_back),
+        style = Theme.typography.heading.one.semiBold,
+        color = Theme.colors.contentPrimary
+    )
+    Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
+    EmailInput(
+        state = emailTextState,
+        errorText = emailError,
+        placeholder = stringResource(R.string.your_email)
+    )
+    PasswordInput(
+        state = passwordTextState,
+        errorText = passwordError,
+        placeholder = stringResource(R.string.your_password)
+    )
+    AnimatedVisibility(
+        modifier = Modifier.fillMaxHeight(),
+        visible = !isKeyboardVisible,
+        enter = fadeIn(),
+        exit = fadeOut()
+    ) {
+        BottomButtons(
+            onSignUpClick = onSignUpClick,
+            onRestoreClick = onRestoreClick,
+            onLoggedIn = onLoggedIn,
+            isButtonEnabled = isButtonEnabled
         )
+    }
+    Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.systemBars))
+}
+
+@Composable
+private fun BottomButtons(
+    onSignUpClick: () -> Unit,
+    onRestoreClick: () -> Unit,
+    onLoggedIn: () -> Unit,
+    isButtonEnabled: Boolean
+) {
+    Column {
         Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
         PrimaryButton(
             enabled = isButtonEnabled,
@@ -160,7 +256,7 @@ private fun BoxScope.ButtonsContainer(
             onClick = onLoggedIn,
             text = stringResource(R.string.log_in)
         )
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(Theme.dimens.triplePad))
         TextButton(
             modifier = Modifier.fillMaxWidth(),
             text = stringResource(R.string.dont_have_an_account),
@@ -177,7 +273,6 @@ private fun BoxScope.ButtonsContainer(
             text = stringResource(R.string.forgot_password),
             onClick = onRestoreClick
         )
-        Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.systemBars))
     }
 }
 
