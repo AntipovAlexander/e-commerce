@@ -1,6 +1,9 @@
 package com.ecommerce.signup
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,6 +38,7 @@ import androidx.compose.ui.unit.Dp
 import com.ecommerce.presentation.core.extensions.conditional
 import com.ecommerce.presentation.core.extensions.rememberKeyboardVisibility
 import com.ecommerce.presentation.core.theme.Theme
+import com.ecommerce.presentation.core.widgets.buttons.BackButton
 import com.ecommerce.presentation.core.widgets.buttons.PrimaryButton
 import com.ecommerce.presentation.core.widgets.inputs.EmailInput
 import com.ecommerce.presentation.core.widgets.inputs.PasswordInput
@@ -47,9 +51,9 @@ fun SignUpScreen(
     onSignUpClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val shapeSize = Theme.dimens.triplePad
-    val emailTextState = rememberTextFieldState()
     Box(modifier = modifier.fillMaxSize()) {
+        val isKeyboardVisible by rememberKeyboardVisibility()
+        val buttonsHeightRatio = if (isKeyboardVisible) 1f else BUTTONS_CONTAINER_RATIO
         Image(
             modifier = Modifier
                 .fillMaxWidth()
@@ -59,12 +63,20 @@ fun SignUpScreen(
             contentScale = ContentScale.Crop,
             contentDescription = ""
         )
-        val isKeyboardVisible by rememberKeyboardVisibility()
-        val buttonsHeightRatio = if (isKeyboardVisible) 1f else BUTTONS_CONTAINER_RATIO
+
+        AnimatedVisibility(
+            modifier = Modifier.align(Alignment.TopStart),
+            visible = !isKeyboardVisible,
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
+            BackButton(onClick = onSignUpClick)
+        }
+
         ButtonsContainer(
             isKeyboardVisible = isKeyboardVisible,
-            shapeSize = shapeSize,
-            emailTextState = emailTextState,
+            shapeSize = Theme.dimens.triplePad,
+            emailTextState = rememberTextFieldState(),
             onSignUpClick = onSignUpClick,
             modifier = Modifier
                 .animateContentSize()

@@ -46,8 +46,8 @@ import com.ecommerce.presentation.core.extensions.conditional
 import com.ecommerce.presentation.core.extensions.observeAsText
 import com.ecommerce.presentation.core.extensions.rememberKeyboardVisibility
 import com.ecommerce.presentation.core.theme.Theme
+import com.ecommerce.presentation.core.widgets.buttons.BackButton
 import com.ecommerce.presentation.core.widgets.buttons.PrimaryButton
-import com.ecommerce.presentation.core.widgets.buttons.TextButton
 import com.ecommerce.presentation.core.widgets.inputs.EmailInput
 
 private const val IMAGE_CONTAINER_RATIO = 0.5f
@@ -108,6 +108,16 @@ private fun ForgotPassword(
             contentScale = ContentScale.Crop,
             contentDescription = ""
         )
+
+        AnimatedVisibility(
+            modifier = Modifier.align(Alignment.TopStart),
+            visible = !isKeyboardVisible,
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
+            BackButton(onClick = onBackClick)
+        }
+
         ButtonsContainer(
             isKeyboardVisible = isKeyboardVisible,
             emailTextState = emailTextState,
@@ -118,7 +128,6 @@ private fun ForgotPassword(
                 .animateContentSize()
                 .fillMaxHeight(buttonsHeightRatio),
             onRestoreClick = onRestoreClick,
-            onBackClick = onBackClick,
             shapeSize = shapeSize,
         )
     }
@@ -133,8 +142,7 @@ private fun BoxScope.ButtonsContainer(
     isLoading: Boolean,
     shapeSize: Dp,
     modifier: Modifier = Modifier,
-    onRestoreClick: () -> Unit = {},
-    onBackClick: () -> Unit = {},
+    onRestoreClick: () -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -155,9 +163,7 @@ private fun BoxScope.ButtonsContainer(
             emailTextState,
             emailError,
             onRestoreClick,
-            onBackClick,
             isButtonEnabled,
-            isLoading
         )
         Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.systemBars))
     }
@@ -187,9 +193,7 @@ private fun ColumnScope.ForgotPasswordInputs(
     emailTextState: TextFieldState,
     emailError: String?,
     onRestoreClick: () -> Unit,
-    onBackClick: () -> Unit,
     isButtonEnabled: Boolean,
-    isLoading: Boolean
 ) {
     val spacerHeight = when (isKeyboardVisible) {
         true -> with(LocalDensity.current) {
@@ -216,33 +220,12 @@ private fun ColumnScope.ForgotPasswordInputs(
         enter = fadeIn(),
         exit = fadeOut()
     ) {
-        BottomButtons(
-            onRestoreClick = onRestoreClick,
-            onBackClick = onBackClick,
-            isButtonEnabled = isButtonEnabled && !isLoading
-        )
-    }
-}
-
-@Composable
-private fun BottomButtons(
-    onRestoreClick: () -> Unit,
-    onBackClick: () -> Unit,
-    isButtonEnabled: Boolean
-) {
-    Column {
         Spacer(modifier = Modifier.height(Theme.dimens.singlePad))
         PrimaryButton(
             enabled = isButtonEnabled,
             modifier = Modifier.fillMaxWidth(),
             onClick = onRestoreClick,
             text = stringResource(R.string.restore_password)
-        )
-        Spacer(modifier = Modifier.height(Theme.dimens.triplePad))
-        TextButton(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(R.string.back_to_sign_in),
-            onClick = onBackClick
         )
     }
 }

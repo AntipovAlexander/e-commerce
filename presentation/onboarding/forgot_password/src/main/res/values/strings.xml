@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="restore_password">Restore Password</string>
-    <string name="back_to_sign_in">Back to Sign In</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="your_email">Your Email</string>
-</resources> 
+</resources>
