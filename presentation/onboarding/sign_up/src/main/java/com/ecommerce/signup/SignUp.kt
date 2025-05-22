@@ -20,12 +20,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.foundation.text.input.TextFieldState
-import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,13 +36,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ecommerce.presentation.core.extensions.conditional
+import com.ecommerce.presentation.core.extensions.observeAsText
 import com.ecommerce.presentation.core.extensions.rememberKeyboardVisibility
 import com.ecommerce.presentation.core.theme.Theme
 import com.ecommerce.presentation.core.widgets.buttons.BackButton
 import com.ecommerce.presentation.core.widgets.buttons.PrimaryButton
 import com.ecommerce.presentation.core.widgets.inputs.EmailInput
 import com.ecommerce.presentation.core.widgets.inputs.PasswordInput
+import kotlinx.coroutines.flow.Flow
 
 private const val IMAGE_CONTAINER_RATIO = 0.5f
 private const val BUTTONS_CONTAINER_RATIO = 0.6f
@@ -50,7 +55,24 @@ private const val BUTTONS_CONTAINER_RATIO = 0.6f
 fun SignUpScreen(
     onSignUpClick: () -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: SignUpViewModel = hiltViewModel()
 ) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val emailTextState = remember { TextFieldState(viewModel.state.value.email) }
+    val enterPasswordState = remember { TextFieldState(viewModel.state.value.password) }
+    val repeatPasswordState = remember { TextFieldState(viewModel.state.value.repeatedPassword) }
+
+    SignUpValidationEffects(
+        emailTextState = emailTextState,
+        enterPasswordState = enterPasswordState,
+        repeatPasswordState = repeatPasswordState,
+        onEmailUpdate = viewModel::onEmailUpdate,
+        onPasswordUpdate = viewModel::onPasswordUpdate,
+        onRepeatedPasswordUpdate = viewModel::onRepeatedPasswordUpdate,
+        onSignedUp = onSignUpClick,
+        effect = viewModel.effect
+    )
+
     Box(modifier = modifier.fillMaxSize()) {
         val isKeyboardVisible by rememberKeyboardVisibility()
         val buttonsHeightRatio = if (isKeyboardVisible) 1f else BUTTONS_CONTAINER_RATIO
@@ -76,8 +98,14 @@ fun SignUpScreen(
         ButtonsContainer(
             isKeyboardVisible = isKeyboardVisible,
             shapeSize = Theme.dimens.triplePad,
-            emailTextState = rememberTextFieldState(),
-            onSignUpClick = onSignUpClick,
+            emailTextState = emailTextState,
+            emailError = state.emailError,
+            enterPasswordState = enterPasswordState,
+            passwordError = state.passwordError,
+            repeatPasswordState = repeatPasswordState,
+            repeatPasswordError = state.repeatedPasswordError,
+            isButtonEnabled = state.isButtonEnabled && !state.isLoading,
+            onSignUpClick = viewModel::onSignUpClick,
             modifier = Modifier
                 .animateContentSize()
                 .fillMaxHeight(buttonsHeightRatio),
@@ -90,6 +118,12 @@ private fun BoxScope.ButtonsContainer(
     isKeyboardVisible: Boolean,
     shapeSize: Dp,
     emailTextState: TextFieldState,
+    emailError: String?,
+    enterPasswordState: TextFieldState,
+    passwordError: String?,
+    repeatPasswordState: TextFieldState,
+    repeatPasswordError: String?,
+    isButtonEnabled: Boolean,
     onSignUpClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -107,8 +141,6 @@ private fun BoxScope.ButtonsContainer(
             .imePadding(),
         verticalArrangement = Arrangement.Top
     ) {
-        val enterPasswordState = remember { TextFieldState() }
-        val repeatPasswordState = remember { TextFieldState() }
         Spacer(modifier = Modifier.height(shapeSize + Theme.dimens.doublePad))
         Text(
             text = stringResource(R.string.lets_get_started),
@@ -118,22 +150,64 @@ private fun BoxScope.ButtonsContainer(
         Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
         EmailInput(
             state = emailTextState,
+            errorText = emailError,
             placeholder = stringResource(R.string.your_email)
         )
         PasswordInput(
             state = enterPasswordState,
+            errorText = passwordError,
             placeholder = stringResource(R.string.set_your_password)
         )
         PasswordInput(
             state = repeatPasswordState,
+            errorText = repeatPasswordError,
             placeholder = stringResource(R.string.repeat_your_password)
         )
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
+            enabled = isButtonEnabled,
             text = stringResource(R.string.sign_up),
             onClick = onSignUpClick
         )
         Spacer(modifier = Modifier.height(Theme.dimens.doublePad))
+    }
+}
+
+@Composable
+private fun SignUpValidationEffects(
+    emailTextState: TextFieldState,
+    enterPasswordState: TextFieldState,
+    repeatPasswordState: TextFieldState,
+    onEmailUpdate: (String) -> Unit,
+    onPasswordUpdate: (String) -> Unit,
+    onRepeatedPasswordUpdate: (String) -> Unit,
+    onSignedUp: () -> Unit,
+    effect: Flow<SignUpEffect>
+) {
+    LaunchedEffect(emailTextState) {
+        snapshotFlow { emailTextState.text }
+            .observeAsText()
+            .collect(onEmailUpdate)
+    }
+
+    LaunchedEffect(enterPasswordState) {
+        snapshotFlow { enterPasswordState.text }
+            .observeAsText()
+            .collect(onPasswordUpdate)
+    }
+
+    LaunchedEffect(repeatPasswordState) {
+        snapshotFlow { repeatPasswordState.text }
+            .observeAsText()
+            .collect(onRepeatedPasswordUpdate)
+    }
+
+    LaunchedEffect(onSignedUp) {
+        effect.collect { effect ->
+            when (effect) {
+                SignUpEffect.SignedUp -> onSignedUp()
+            }
+        }
     }
 }
 
