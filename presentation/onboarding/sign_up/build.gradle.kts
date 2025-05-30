@@ -11,6 +11,7 @@ android {
 dependencies {
     implementation(project(":presentation:core"))
     implementation(project(":domain:core"))
+    implementation(project(":domain:auth"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.kotlin.serialization.json)
     implementation(libs.bundles.ktx)

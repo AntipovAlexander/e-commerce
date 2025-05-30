@@ -15,11 +15,11 @@ data class SignInState(
     companion object {
         fun default() = SignInState(
             isLoading = false,
-            isButtonEnabled = false,
-            email = "",
-            emailError = "",
-            password = "",
-            passwordError = "",
+            isButtonEnabled = true,
+            email = "emily.johnson@x.dummyjson.com",
+            emailError = null,
+            password = "emilyspass",
+            passwordError = null,
         )
     }
 }

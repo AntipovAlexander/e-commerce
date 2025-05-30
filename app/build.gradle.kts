@@ -8,9 +8,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":presentation:core"))
+    implementation(project(":build-config"))
     implementation(project(":data:core"))
+    implementation(project(":data:auth"))
     implementation(project(":domain:core"))
+    implementation(project(":domain:auth"))
+    implementation(project(":presentation:core"))
     implementation(project(":presentation:onboarding"))
     implementation(project(":presentation:onboarding:sign_up"))
     implementation(project(":presentation:onboarding:sign_in"))

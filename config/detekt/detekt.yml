@@ -799,7 +799,7 @@ Compose:
     # treatAsLambda: MyLambdaType
   CompositionLocalAllowlist:
     active: true
-    allowedCompositionLocals: LocalAppColors,LocalAppShapes,LocalAppTypography,LocalAppDimens
+    allowedCompositionLocals: LocalAppColors,LocalAppShapes,LocalAppTypography,LocalAppDimens,LocalNotificationController
   CompositionLocalNaming:
     active: true
   ContentEmitterReturningValues:

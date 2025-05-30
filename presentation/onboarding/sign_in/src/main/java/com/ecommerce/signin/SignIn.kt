@@ -50,19 +50,22 @@ import com.ecommerce.presentation.core.widgets.buttons.PrimaryButton
 import com.ecommerce.presentation.core.widgets.buttons.TextButton
 import com.ecommerce.presentation.core.widgets.inputs.EmailInput
 import com.ecommerce.presentation.core.widgets.inputs.PasswordInput
+import com.ecommerce.presentation.core.widgets.misc.FullScreenLoader
+import com.ecommerce.presentation.core.widgets.misc.LocalNotificationController
 
 private const val IMAGE_CONTAINER_RATIO = 0.5f
 private const val BUTTONS_CONTAINER_RATIO = 0.6f
 
 @Composable
 fun SignInScreen(
-    onSignUpClick: () -> Unit,
+    onUserSignIn: () -> Unit,
     onRestoreClick: () -> Unit,
-    onLoggedIn: () -> Unit,
+    onUserSignInClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel()
 ) {
     val shapeSize = Theme.dimens.triplePad
+    val notificationController = LocalNotificationController.current
     val state by viewModel.state.collectAsStateWithLifecycle()
     val emailTextState = remember { TextFieldState(viewModel.state.value.email) }
     val passwordTextState = remember { TextFieldState(viewModel.state.value.password) }
@@ -76,16 +79,25 @@ fun SignInScreen(
             .observeAsText()
             .collect(viewModel::onPasswordUpdate)
     }
+    LaunchedEffect(viewModel.effect, onUserSignIn) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is SignInEffect.ShowMessage -> notificationController.show(effect.error)
+                is SignInEffect.NavigateToHome -> onUserSignIn()
+            }
+        }
+    }
     SignIn(
         modifier = modifier,
         emailTextState = emailTextState,
         state = state,
         passwordTextState = passwordTextState,
-        onLoggedIn = onLoggedIn,
-        onSignUpClick = onSignUpClick,
+        onSignUpClick = onUserSignInClick,
+        onSignInClick = viewModel::signIn,
         onRestoreClick = onRestoreClick,
         shapeSize = shapeSize
     )
+    FullScreenLoader(isLoading = state.isLoading)
 }
 
 @Composable
@@ -93,8 +105,8 @@ private fun SignIn(
     emailTextState: TextFieldState,
     state: SignInState,
     passwordTextState: TextFieldState,
-    onLoggedIn: () -> Unit,
     onSignUpClick: () -> Unit,
+    onSignInClick: () -> Unit,
     onRestoreClick: () -> Unit,
     shapeSize: Dp,
     modifier: Modifier = Modifier,
@@ -121,8 +133,8 @@ private fun SignIn(
             modifier = Modifier
                 .animateContentSize()
                 .fillMaxHeight(buttonsHeightRatio),
-            onLoggedIn = onLoggedIn,
             onSignUpClick = onSignUpClick,
+            onSignInClick = onSignInClick,
             onRestoreClick = onRestoreClick,
             shapeSize = shapeSize,
         )
@@ -139,8 +151,8 @@ private fun BoxScope.ButtonsContainer(
     isButtonEnabled: Boolean,
     shapeSize: Dp,
     modifier: Modifier = Modifier,
-    onLoggedIn: () -> Unit = {},
     onSignUpClick: () -> Unit = {},
+    onSignInClick: () -> Unit = {},
     onRestoreClick: () -> Unit = {},
 ) {
     Column(
@@ -157,16 +169,16 @@ private fun BoxScope.ButtonsContainer(
         verticalArrangement = Arrangement.Top
     ) {
         SignInInputs(
-            isKeyboardVisible,
-            shapeSize,
-            emailTextState,
-            emailError,
-            passwordTextState,
-            passwordError,
-            onSignUpClick,
-            onRestoreClick,
-            onLoggedIn,
-            isButtonEnabled
+            isKeyboardVisible = isKeyboardVisible,
+            shapeSize = shapeSize,
+            emailTextState = emailTextState,
+            emailError = emailError,
+            passwordTextState = passwordTextState,
+            passwordError = passwordError,
+            onSignInClick = onSignInClick,
+            onRestoreClick = onRestoreClick,
+            onSignUpClick = onSignUpClick,
+            isButtonEnabled = isButtonEnabled,
         )
     }
     AnimatedVisibility(
@@ -182,7 +194,7 @@ private fun BoxScope.ButtonsContainer(
         PrimaryButton(
             enabled = isButtonEnabled,
             modifier = Modifier.fillMaxWidth(),
-            onClick = onLoggedIn,
+            onClick = onSignInClick,
             text = stringResource(R.string.log_in)
         )
     }
@@ -196,9 +208,9 @@ private fun ColumnScope.SignInInputs(
     emailError: String?,
     passwordTextState: TextFieldState,
     passwordError: String?,
-    onSignUpClick: () -> Unit,
+    onSignInClick: () -> Unit,
     onRestoreClick: () -> Unit,
-    onLoggedIn: () -> Unit,
+    onSignUpClick: () -> Unit,
     isButtonEnabled: Boolean
 ) {
     val spacerHeight = when (isKeyboardVisible) {
@@ -232,9 +244,9 @@ private fun ColumnScope.SignInInputs(
         exit = fadeOut()
     ) {
         BottomButtons(
-            onSignUpClick = onSignUpClick,
+            onSignInClick = onSignInClick,
             onRestoreClick = onRestoreClick,
-            onLoggedIn = onLoggedIn,
+            onSignUpClick = onSignUpClick,
             isButtonEnabled = isButtonEnabled
         )
     }
@@ -245,7 +257,7 @@ private fun ColumnScope.SignInInputs(
 private fun BottomButtons(
     onSignUpClick: () -> Unit,
     onRestoreClick: () -> Unit,
-    onLoggedIn: () -> Unit,
+    onSignInClick: () -> Unit,
     isButtonEnabled: Boolean
 ) {
     Column {
@@ -253,7 +265,7 @@ private fun BottomButtons(
         PrimaryButton(
             enabled = isButtonEnabled,
             modifier = Modifier.fillMaxWidth(),
-            onClick = onLoggedIn,
+            onClick = onSignInClick,
             text = stringResource(R.string.log_in)
         )
         Spacer(modifier = Modifier.height(Theme.dimens.triplePad))
@@ -298,9 +310,9 @@ private fun SignInScreenPreview() {
                 passwordError = "Password error",
             ),
             passwordTextState = TextFieldState("123456"),
-            onLoggedIn = {},
             onSignUpClick = {},
             onRestoreClick = {},
+            onSignInClick = {},
             shapeSize = Theme.dimens.triplePad
         )
     }

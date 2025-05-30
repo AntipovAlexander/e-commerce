@@ -2,7 +2,7 @@ package com.ecommerce.forgot
 
 import androidx.lifecycle.viewModelScope
 import com.ecommerce.domain.core.base.getOrNull
-import com.ecommerce.domain.core.validate.ValidateEmailUseCase
+import com.ecommerce.domain.core.usecase.ValidateEmailUseCase
 import com.ecommerce.presentation.core.base.BaseViewModel
 import com.ecommerce.presentation.core.extensions.launch
 import dagger.hilt.android.lifecycle.HiltViewModel

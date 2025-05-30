@@ -8,5 +8,8 @@
     <color name="gray600">#868D94</color>
     <color name="gray700">#495057</color>
     <color name="gray900">#212429</color>
-    <color name="red600">#EC1B40</color>
+    <color name="red300">#FF768F</color>
+    <color name="red600">#991A32</color>
+    <color name="green300">#9AB182</color>
+    <color name="green600">#41730A</color>
 </resources>

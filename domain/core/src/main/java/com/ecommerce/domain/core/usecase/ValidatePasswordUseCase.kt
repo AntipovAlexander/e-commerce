@@ -1,4 +1,4 @@
-package com.ecommerce.domain.core.validate
+package com.ecommerce.domain.core.usecase
 
 import androidx.core.text.trimmedLength
 import com.ecommerce.domain.core.R

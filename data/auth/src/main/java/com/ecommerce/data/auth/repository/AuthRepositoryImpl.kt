@@ -1,0 +1,28 @@
+package com.ecommerce.data.auth.repository
+
+import com.ecommerce.data.auth.model.mapper.toDomainModel
+import com.ecommerce.data.auth.sources.AuthDataSource
+import com.ecommerce.domain.auth.model.User
+import com.ecommerce.domain.auth.repository.AuthRepository
+import javax.inject.Inject
+
+internal class AuthRepositoryImpl @Inject constructor(
+    private val authDataSource: AuthDataSource
+) : AuthRepository {
+
+    override suspend fun signIn(username: String, password: String): User {
+        return authDataSource.signIn(username, password).toDomainModel()
+    }
+
+    override suspend fun signUp(email: String, password: String): User {
+        TODO()
+    }
+
+    override suspend fun resetPassword(email: String) {
+        TODO()
+    }
+
+    override suspend fun signOut() {
+        TODO()
+    }
+}

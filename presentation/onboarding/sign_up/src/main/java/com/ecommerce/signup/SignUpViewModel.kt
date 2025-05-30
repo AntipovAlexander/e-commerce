@@ -3,8 +3,8 @@ package com.ecommerce.signup
 import androidx.lifecycle.viewModelScope
 import com.ecommerce.domain.core.base.getOrNull
 import com.ecommerce.domain.core.resources.ResourceProvider
-import com.ecommerce.domain.core.validate.ValidateEmailUseCase
-import com.ecommerce.domain.core.validate.ValidatePasswordUseCase
+import com.ecommerce.domain.core.usecase.ValidateEmailUseCase
+import com.ecommerce.domain.core.usecase.ValidatePasswordUseCase
 import com.ecommerce.presentation.core.base.BaseViewModel
 import com.ecommerce.presentation.core.extensions.launch
 import dagger.hilt.android.lifecycle.HiltViewModel

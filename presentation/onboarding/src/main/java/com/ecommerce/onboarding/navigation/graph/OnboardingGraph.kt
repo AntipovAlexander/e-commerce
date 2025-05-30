@@ -37,9 +37,9 @@ fun NavGraphBuilder.onboardingGraph(navController: NavController, onUserLoggedIn
             }
         ) {
             SignInScreen(
-                onSignUpClick = { navController.navigate(SignUpRoute) },
+                onUserSignIn = { onUserLoggedIn() },
                 onRestoreClick = { navController.navigate(ForgotPasswordRoute) },
-                onLoggedIn = { onUserLoggedIn() }
+                onUserSignInClick = { navController.navigate(SignUpRoute) }
             )
         }
         slidingComposable<SignUpRoute> {
