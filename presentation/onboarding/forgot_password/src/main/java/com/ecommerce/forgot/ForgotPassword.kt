@@ -57,7 +57,7 @@ private const val BUTTONS_CONTAINER_RATIO = 0.6f
 
 @Composable
 fun ForgotPasswordScreen(
-    onBackClick: () -> Unit,
+    onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ForgotPasswordViewModel = hiltViewModel()
 ) {
@@ -72,10 +72,10 @@ fun ForgotPasswordScreen(
             .collect(viewModel::onEmailUpdate)
     }
 
-    LaunchedEffect(onBackClick) {
+    LaunchedEffect(onDismiss) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                ForgotPasswordEffect.EmailRestoreSuccess -> onBackClick()
+                ForgotPasswordEffect.EmailRestoreSuccess -> onDismiss()
                 is ForgotPasswordEffect.ShowMessage -> notificationController.show(effect.message)
             }
         }
@@ -86,7 +86,7 @@ fun ForgotPasswordScreen(
         emailTextState = emailTextState,
         state = state,
         onRestoreClick = viewModel::onRestorePasswordClick,
-        onBackClick = onBackClick,
+        onBackClick = onDismiss,
         shapeSize = shapeSize
     )
     FullScreenLoader(isLoading = state.isLoading)

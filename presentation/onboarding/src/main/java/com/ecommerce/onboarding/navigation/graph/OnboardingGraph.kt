@@ -49,7 +49,7 @@ fun NavGraphBuilder.onboardingGraph(navController: NavController, onSignInSucces
         }
         slidingComposable<ForgotPasswordRoute> {
             ForgotPasswordScreen(
-                onBackClick = { navController.popBackStack() }
+                onDismiss = { navController.popBackStack() }
             )
         }
     }
