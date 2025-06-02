@@ -82,7 +82,7 @@ fun SignInScreen(
     LaunchedEffect(viewModel.effect, onUserSignIn) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is SignInEffect.ShowMessage -> notificationController.show(effect.error)
+                is SignInEffect.ShowMessage -> notificationController.show(effect.message)
                 is SignInEffect.NavigateToHome -> onUserSignIn()
             }
         }

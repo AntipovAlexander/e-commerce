@@ -18,8 +18,8 @@ internal class AuthRepositoryImpl @Inject constructor(
         TODO()
     }
 
-    override suspend fun resetPassword(email: String) {
-        TODO()
+    override suspend fun restorePassword(email: String) {
+        authDataSource.restorePassword(email)
     }
 
     override suspend fun signOut() {

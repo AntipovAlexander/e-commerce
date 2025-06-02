@@ -3,4 +3,5 @@
     <string name="restore_password">Restore Password</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="your_email">Your Email</string>
+    <string name="email_restore_success_message">Check your email for instructions</string>
 </resources>

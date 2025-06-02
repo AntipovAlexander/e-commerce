@@ -49,6 +49,8 @@ import com.ecommerce.presentation.core.theme.Theme
 import com.ecommerce.presentation.core.widgets.buttons.BackButton
 import com.ecommerce.presentation.core.widgets.buttons.PrimaryButton
 import com.ecommerce.presentation.core.widgets.inputs.EmailInput
+import com.ecommerce.presentation.core.widgets.misc.FullScreenLoader
+import com.ecommerce.presentation.core.widgets.misc.LocalNotificationController
 
 private const val IMAGE_CONTAINER_RATIO = 0.5f
 private const val BUTTONS_CONTAINER_RATIO = 0.6f
@@ -61,6 +63,7 @@ fun ForgotPasswordScreen(
 ) {
     val shapeSize = Theme.dimens.triplePad
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val notificationController = LocalNotificationController.current
     val emailTextState = remember { TextFieldState(viewModel.state.value.email) }
 
     LaunchedEffect(emailTextState) {
@@ -72,7 +75,8 @@ fun ForgotPasswordScreen(
     LaunchedEffect(onBackClick) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                ForgotPasswordEffect.EmailSent -> onBackClick()
+                ForgotPasswordEffect.EmailRestoreSuccess -> onBackClick()
+                is ForgotPasswordEffect.ShowMessage -> notificationController.show(effect.message)
             }
         }
     }
@@ -85,6 +89,7 @@ fun ForgotPasswordScreen(
         onBackClick = onBackClick,
         shapeSize = shapeSize
     )
+    FullScreenLoader(isLoading = state.isLoading)
 }
 
 @Composable

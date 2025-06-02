@@ -7,5 +7,5 @@ import com.ecommerce.presentation.core.model.NotificationMessage
 @Immutable
 sealed class SignInEffect : Reducer.ViewEffect {
     object NavigateToHome : SignInEffect()
-    data class ShowMessage(val error: NotificationMessage) : SignInEffect()
+    data class ShowMessage(val message: NotificationMessage) : SignInEffect()
 }

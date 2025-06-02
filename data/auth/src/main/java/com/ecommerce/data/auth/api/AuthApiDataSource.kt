@@ -6,6 +6,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 internal class AuthApiDataSource @Inject constructor(private val client: HttpClient) : AuthDataSource {
@@ -17,4 +18,10 @@ internal class AuthApiDataSource @Inject constructor(private val client: HttpCli
             )
         )
     }.body<UserNetworkModel>()
+
+    @Suppress("MagicNumber")
+    override suspend fun restorePassword(string: String) {
+        // There is no real api call, so just simulate request
+        delay(2000L)
+    }
 }
