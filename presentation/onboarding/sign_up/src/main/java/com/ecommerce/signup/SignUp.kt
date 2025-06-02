@@ -54,7 +54,7 @@ private const val BUTTONS_CONTAINER_RATIO = 0.6f
 
 @Composable
 fun SignUpScreen(
-    onExitRequest: () -> Unit,
+    onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
@@ -72,10 +72,10 @@ fun SignUpScreen(
         onPasswordUpdate = viewModel::onPasswordUpdate,
         onRepeatedPasswordUpdate = viewModel::onRepeatedPasswordUpdate,
     )
-    LaunchedEffect(onExitRequest) {
+    LaunchedEffect(onDismiss) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                SignUpEffect.SignUpSuccess -> onExitRequest()
+                SignUpEffect.SignUpSuccess -> onDismiss()
                 is SignUpEffect.ShowMessage -> notificationController.show(effect.message)
             }
         }
@@ -86,7 +86,7 @@ fun SignUpScreen(
         enterPasswordState = enterPasswordState,
         repeatPasswordState = repeatPasswordState,
         onSignUpClick = viewModel::onSignUpClick,
-        onExitRequest = onExitRequest,
+        onExitRequest = onDismiss,
         modifier = modifier,
     )
     FullScreenLoader(isLoading = state.isLoading)
@@ -244,6 +244,6 @@ private fun containerShape(curveHeightPx: Float) = GenericShape { size, _ ->
 @Composable
 private fun SignUpScreenPreview() {
     Theme {
-        SignUpScreen(onExitRequest = {})
+        SignUpScreen(onDismiss = {})
     }
 }
