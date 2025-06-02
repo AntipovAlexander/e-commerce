@@ -16,7 +16,7 @@ import com.ecommerce.signin.SignInScreen
 import com.ecommerce.signup.SignUpRoute
 import com.ecommerce.signup.SignUpScreen
 
-fun NavGraphBuilder.onboardingGraph(navController: NavController, onUserLoggedIn: () -> Unit) {
+fun NavGraphBuilder.onboardingGraph(navController: NavController, onSignInSuccess: () -> Unit) {
     navigation<OnboardingGraphRoute>(startDestination = OnboardingScreenRoute) {
         composable<OnboardingScreenRoute> {
             OnboardingScreen(
@@ -37,9 +37,9 @@ fun NavGraphBuilder.onboardingGraph(navController: NavController, onUserLoggedIn
             }
         ) {
             SignInScreen(
-                onUserSignIn = { onUserLoggedIn() },
+                onSignInSuccess = { onSignInSuccess() },
                 onRestoreClick = { navController.navigate(ForgotPasswordRoute) },
-                onUserSignInClick = { navController.navigate(SignUpRoute) }
+                onSignUpClick = { navController.navigate(SignUpRoute) }
             )
         }
         slidingComposable<SignUpRoute> {

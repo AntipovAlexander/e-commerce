@@ -21,7 +21,7 @@ fun MainActivity.MainNavHost(modifier: Modifier = Modifier) {
     ) {
         onboardingGraph(
             navController = navController,
-            onUserLoggedIn = { switchToMainGraph(navController) }
+            onSignInSuccess = { switchToMainGraph(navController) }
         )
         mainScreenGraph()
     }

@@ -58,9 +58,9 @@ private const val BUTTONS_CONTAINER_RATIO = 0.6f
 
 @Composable
 fun SignInScreen(
-    onUserSignIn: () -> Unit,
+    onSignInSuccess: () -> Unit,
     onRestoreClick: () -> Unit,
-    onUserSignInClick: () -> Unit,
+    onSignUpClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel()
 ) {
@@ -79,11 +79,11 @@ fun SignInScreen(
             .observeAsText()
             .collect(viewModel::onPasswordUpdate)
     }
-    LaunchedEffect(viewModel.effect, onUserSignIn) {
+    LaunchedEffect(viewModel.effect, onSignInSuccess) {
         viewModel.effect.collect { effect ->
             when (effect) {
                 is SignInEffect.ShowMessage -> notificationController.show(effect.message)
-                is SignInEffect.NavigateToHome -> onUserSignIn()
+                is SignInEffect.NavigateToHome -> onSignInSuccess()
             }
         }
     }
@@ -92,7 +92,7 @@ fun SignInScreen(
         emailTextState = emailTextState,
         state = state,
         passwordTextState = passwordTextState,
-        onSignUpClick = onUserSignInClick,
+        onSignUpClick = onSignUpClick,
         onSignInClick = viewModel::signIn,
         onRestoreClick = onRestoreClick,
         shapeSize = shapeSize
