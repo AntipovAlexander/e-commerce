@@ -1,12 +1,18 @@
 package com.ecommerce.signup
 
 import androidx.lifecycle.viewModelScope
+import com.ecommerce.domain.auth.usecase.SignUpUseCase
+import com.ecommerce.domain.core.base.doOnError
+import com.ecommerce.domain.core.base.doOnSuccess
+import com.ecommerce.domain.core.base.finally
 import com.ecommerce.domain.core.base.getOrNull
+import com.ecommerce.domain.core.error.ErrorResourceManager
 import com.ecommerce.domain.core.resources.ResourceProvider
 import com.ecommerce.domain.core.usecase.ValidateEmailUseCase
 import com.ecommerce.domain.core.usecase.ValidatePasswordUseCase
 import com.ecommerce.presentation.core.base.BaseViewModel
 import com.ecommerce.presentation.core.extensions.launch
+import com.ecommerce.presentation.core.model.NotificationMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -14,7 +20,9 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
-    private val resourceProvider: ResourceProvider
+    private val signUpUseCase: SignUpUseCase,
+    private val resourceProvider: ResourceProvider,
+    private val errorResourceManager: ErrorResourceManager
 ) : BaseViewModel<SignUpState, SignUpIntent, SignUpEffect>(
     initialState = SignUpState.default(),
     reducer = SignUpStateReducer()
@@ -53,14 +61,19 @@ class SignUpViewModel @Inject constructor(
         applyIntent(SignUpIntent.UpdateRepeatedPasswordError(error))
     }
 
-    @Suppress("MagicNumber")
-    fun onSignUpClick() {
+    fun onSignUpClick() = viewModelScope.launch {
+        val params = SignUpUseCase.Params(email = state.value.email, password = state.value.repeatedPassword)
         applyIntent(SignUpIntent.UpdateIsLoading(true))
-        viewModelScope.launch {
-            // Todo: Implement actual sign up logic
-            kotlinx.coroutines.delay(1000)
-            applyEffect(SignUpEffect.SignedUp)
-            applyIntent(SignUpIntent.UpdateIsLoading(false))
-        }
+        signUpUseCase(params)
+            .doOnSuccess {
+                val message = resourceProvider.getString(R.string.sign_up_success)
+                applyEffect(SignUpEffect.ShowMessage(NotificationMessage.Success(message)))
+                applyEffect(SignUpEffect.SignUpSuccess)
+            }
+            .doOnError {
+                val message = errorResourceManager.getErrorMessage(it)
+                applyEffect(SignUpEffect.ShowMessage(NotificationMessage.Error(message)))
+            }
+            .finally { applyIntent(SignUpIntent.UpdateIsLoading(false)) }
     }
 }

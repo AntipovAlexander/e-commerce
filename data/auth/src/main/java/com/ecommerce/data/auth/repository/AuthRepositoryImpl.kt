@@ -10,17 +10,14 @@ internal class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource
 ) : AuthRepository {
 
-    override suspend fun signIn(username: String, password: String): User {
-        return authDataSource.signIn(username, password).toDomainModel()
-    }
+    override suspend fun signIn(username: String, password: String): User =
+        authDataSource.signIn(username, password).toDomainModel()
 
-    override suspend fun signUp(email: String, password: String): User {
-        TODO()
-    }
+    override suspend fun signUp(email: String, password: String) =
+        authDataSource.signUp(email, password)
 
-    override suspend fun restorePassword(email: String) {
+    override suspend fun restorePassword(email: String) =
         authDataSource.restorePassword(email)
-    }
 
     override suspend fun signOut() {
         TODO()

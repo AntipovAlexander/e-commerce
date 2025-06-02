@@ -46,18 +46,20 @@ import com.ecommerce.presentation.core.widgets.buttons.BackButton
 import com.ecommerce.presentation.core.widgets.buttons.PrimaryButton
 import com.ecommerce.presentation.core.widgets.inputs.EmailInput
 import com.ecommerce.presentation.core.widgets.inputs.PasswordInput
-import kotlinx.coroutines.flow.Flow
+import com.ecommerce.presentation.core.widgets.misc.FullScreenLoader
+import com.ecommerce.presentation.core.widgets.misc.LocalNotificationController
 
 private const val IMAGE_CONTAINER_RATIO = 0.5f
 private const val BUTTONS_CONTAINER_RATIO = 0.6f
 
 @Composable
 fun SignUpScreen(
-    onSignUpClick: () -> Unit,
+    onExitRequest: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val notificationController = LocalNotificationController.current
     val emailTextState = remember { TextFieldState(viewModel.state.value.email) }
     val enterPasswordState = remember { TextFieldState(viewModel.state.value.password) }
     val repeatPasswordState = remember { TextFieldState(viewModel.state.value.repeatedPassword) }
@@ -69,10 +71,37 @@ fun SignUpScreen(
         onEmailUpdate = viewModel::onEmailUpdate,
         onPasswordUpdate = viewModel::onPasswordUpdate,
         onRepeatedPasswordUpdate = viewModel::onRepeatedPasswordUpdate,
-        onSignedUp = onSignUpClick,
-        effect = viewModel.effect
     )
+    LaunchedEffect(onExitRequest) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                SignUpEffect.SignUpSuccess -> onExitRequest()
+                is SignUpEffect.ShowMessage -> notificationController.show(effect.message)
+            }
+        }
+    }
+    SignUp(
+        emailTextState = emailTextState,
+        state = state,
+        enterPasswordState = enterPasswordState,
+        repeatPasswordState = repeatPasswordState,
+        onSignUpClick = viewModel::onSignUpClick,
+        onExitRequest = onExitRequest,
+        modifier = modifier,
+    )
+    FullScreenLoader(isLoading = state.isLoading)
+}
 
+@Composable
+private fun SignUp(
+    emailTextState: TextFieldState,
+    state: SignUpState,
+    enterPasswordState: TextFieldState,
+    repeatPasswordState: TextFieldState,
+    onSignUpClick: () -> Unit,
+    onExitRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Box(modifier = modifier.fillMaxSize()) {
         val isKeyboardVisible by rememberKeyboardVisibility()
         val buttonsHeightRatio = if (isKeyboardVisible) 1f else BUTTONS_CONTAINER_RATIO
@@ -92,7 +121,7 @@ fun SignUpScreen(
             enter = fadeIn(),
             exit = fadeOut()
         ) {
-            BackButton(onClick = onSignUpClick)
+            BackButton(onClick = onExitRequest)
         }
 
         ButtonsContainer(
@@ -105,7 +134,7 @@ fun SignUpScreen(
             repeatPasswordState = repeatPasswordState,
             repeatPasswordError = state.repeatedPasswordError,
             isButtonEnabled = state.isButtonEnabled && !state.isLoading,
-            onSignUpClick = viewModel::onSignUpClick,
+            onSignUpClick = onSignUpClick,
             modifier = Modifier
                 .animateContentSize()
                 .fillMaxHeight(buttonsHeightRatio),
@@ -181,8 +210,6 @@ private fun SignUpValidationEffects(
     onEmailUpdate: (String) -> Unit,
     onPasswordUpdate: (String) -> Unit,
     onRepeatedPasswordUpdate: (String) -> Unit,
-    onSignedUp: () -> Unit,
-    effect: Flow<SignUpEffect>
 ) {
     LaunchedEffect(emailTextState) {
         snapshotFlow { emailTextState.text }
@@ -201,14 +228,6 @@ private fun SignUpValidationEffects(
             .observeAsText()
             .collect(onRepeatedPasswordUpdate)
     }
-
-    LaunchedEffect(onSignedUp) {
-        effect.collect { effect ->
-            when (effect) {
-                SignUpEffect.SignedUp -> onSignedUp()
-            }
-        }
-    }
 }
 
 private fun containerShape(curveHeightPx: Float) = GenericShape { size, _ ->
@@ -225,6 +244,6 @@ private fun containerShape(curveHeightPx: Float) = GenericShape { size, _ ->
 @Composable
 private fun SignUpScreenPreview() {
     Theme {
-        SignUpScreen(onSignUpClick = {})
+        SignUpScreen(onExitRequest = {})
     }
 }

@@ -2,6 +2,8 @@ package com.ecommerce.data.auth.api
 
 import com.ecommerce.data.auth.model.UserNetworkModel
 import com.ecommerce.data.auth.sources.AuthDataSource
+import com.ecommerce.data.core.model.ErrorModel
+import com.ecommerce.data.core.network.CustomClientErrorException
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
@@ -23,5 +25,15 @@ internal class AuthApiDataSource @Inject constructor(private val client: HttpCli
     override suspend fun restorePassword(string: String) {
         // There is no real api call, so just simulate request
         delay(2000L)
+    }
+
+    @Suppress("MagicNumber")
+    override suspend fun signUp(email: String, password: String) {
+        // There is no real api call, so just simulate request,
+        // also some "if" for testing purposes, do not pay attention
+        delay(2000L)
+        if (email == "taken@email.com") {
+            throw CustomClientErrorException(ErrorModel("This email is already taken"))
+        }
     }
 }
